@@ -1,0 +1,47 @@
+const express = require('express')
+var bodyParser = require('body-parser')
+
+const app = express()
+
+const cors=require("cors");
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
+
+// create application/json parser
+var jsonParser = bodyParser.json()
+app.use(jsonParser)
+
+ // create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+app.use(urlencodedParser)
+
+app.use(cors(corsOptions)) // Use this after the variable declaration
+
+//Conexion a la BD
+const archivoBD = require('./conexion')
+
+//importar rutas y modelos
+const rutafuncionario = require('./rutas/usuario')
+app.use('/api/funcionario', rutafuncionario)
+
+
+//importar body parser
+
+
+
+
+app.get('/', (req, res)=>{
+    res.end('Bienvenidos al servidor, ejecutandose...')
+})
+
+//configuracion 
+app.set('port', process.env.PORT || 3001);
+
+
+// starting the server
+app.listen(app.get('port'), () => {
+    console.log(`server on port ${app.get('port')}`);
+  });
