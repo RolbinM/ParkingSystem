@@ -1,38 +1,51 @@
-import {useEffect, useState} from "react";
-import React from 'react';
-import Chart from "./Chart";
-import {MenuAdmin} from "../MenuAdmin"
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import 'aos/dist/aos.css'
+import {MenuAdmin} from "../MenuAdmin"
+
+import {ConsultaFuncionarioEspecifico} from "./ConsultaFuncionarioEspecifico"
 
 
-export function ReporteFuncionarios () {
+export function ReporteConsultaFuncionario(){
+
     const params = useParams()
 
+    const [identificacion, setIdentificacion]=useState(params.identi)
+    const[datafuncionario, setdatafuncionario]=useState([])
 
-    const [departamento, setDepartamento]=useState(params.departamento)
+    useEffect(() => {
+        axios.post('http://localhost:3001/api/funcionario/obtenerdatafuncionario', 
+        {idfuncionario: params.identi}).then(res => {
+            setdatafuncionario(res.data)
+        }) .catch(err => {
+            console.log(err)
+        })
+    }, [])
 
-    return (
+    
+    const listafuncionarios = datafuncionario.map(funcionario => {
+        return (
+            <div>
+                <ConsultaFuncionarioEspecifico funcionario={funcionario}/>
+            </div>
+        )
+    })
+
+    return(
         <div className="App" align="Center">
             <MenuAdmin/>
-            <div></div>
-                <div className="App">
-                <h2 className="title">Reporte Funcionarios</h2>
-                <div className="form">
-                    <div className="row">
-                        <div className="mb-3">
-                                <label htmlFor="Departamento" className="form-label">Departamento</label>
-                                <input type="text" className="form-control" value={departamento} onChange={(e)=> {setDepartamento(e.target.value)}}></input>
-
-                                <a className="btn btn-success" href={`/reportefuncionarios/${departamento}`}>Actualizar</a>
-                                &nbsp;
-                        </div>
+            <div>
+                <div className="col-sm-6">
+                    <div className="mb-3">
+                        <label htmlFor="identificacion" className="form-label">Identificacion</label>
+                        <input type="text" className="form-control" required value={identificacion} onChange={(e)=> {setIdentificacion(e.target.value)}}></input>
+                        <a href={`/reporteconsultafuncionario/${identificacion}`} className="btn btn-success">Buscar</a>
                     </div>
                 </div>
-                <div className="charts">
-                <Chart height={'1000px'} width={'1400px'} filter={params.departamento} chartId={'62807867-9955-4827-860c-f47e1a85a051'}/>
+                <div className="row">
+                    {listafuncionarios}
                 </div>
             </div>
         </div>
     )
-};
+}

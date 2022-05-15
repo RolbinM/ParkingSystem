@@ -12,7 +12,7 @@ export function MenuAdmin(){
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <a className="nav-link"  href="listafuncionarios">Lista de Funcionarios</a>
+                            <a className="nav-link"  href="/listafuncionarios">Lista de Funcionarios</a>
                         </li>
 
                         <li className="nav-item">
@@ -28,7 +28,7 @@ export function MenuAdmin(){
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link" href="/reportefuncionarios/ ">Reporte Funcionarios</a>
+                            <a className="nav-link" href="/reportefuncionarios">Reporte Funcionarios</a>
                         </li>
 
                         <li className="nav-item">
@@ -40,7 +40,7 @@ export function MenuAdmin(){
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link" href="/consultafuncionario">Consulta Funcionario</a>
+                            <a className="nav-link" href="/reporteconsultafuncionario/1">Consulta Funcionario</a>
                         </li>
                         
                         <li className="nav-item">

@@ -18,8 +18,11 @@ import {AgregarParqueo} from "./components/parqueos/AgregarParqueo";
 import {EditarParqueo} from "./components/parqueos/EditarParqueo";
 import {HorarioParqueo} from "./components/parqueos/HorarioParqueo";
 import {EditarHorarioParqueo} from "./components/parqueos/EditarHorarioParqueo";
+
 import {ReporteFuncionarios } from './components/reportes/ReporteFuncionarios';
 import {ReporteParqueos } from './components/reportes/ReporteParqueos';
+import {ReporteConsultaFuncionario } from './components/reportes/ReporteConsultaFuncionario';
+import {ReporteFranjasHorarias } from './components/reportes/ReporteFranjasHorarias';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
@@ -45,9 +48,9 @@ root.render(
 
             <Route path='/reportefuncionarios/' element={<ReporteFuncionarios/>} exact></Route>
             <Route path='/reporteparqueos/' element={<ReporteParqueos/>} exact></Route>
+            <Route path='/reporteconsultafuncionario/:identi' element={<ReporteConsultaFuncionario/>} exact></Route>
+            <Route path='/reportehorarios/' element={<ReporteFranjasHorarias/>} exact></Route>
 
-            <Route path='/horarioparqueo/:idparqueo' element={<HorarioParqueo/>} exact></Route>
-            <Route path='/editarhorarioparqueo/:idparqueo,:dia' element={<EditarHorarioParqueo/>} exact></Route>
         </Routes>
     </BrowserRouter>
   </StrictMode>,
