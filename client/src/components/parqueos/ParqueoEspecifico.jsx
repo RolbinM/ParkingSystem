@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import {Link, useNavigate} from "react-router-dom";
 import axios from 'axios'
 import Swal from 'sweetalert2'
-//import {ListaPlacas} from "./ListaPlacas";
+
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
 
-export function FuncionarioEspecifico({funcionario}){
+export function ParqueoEspecifico({parqueo}){
 
     const navegar = useNavigate()
 
@@ -18,9 +18,9 @@ export function FuncionarioEspecifico({funcionario}){
 
 
     //Funcion para borrar usuario
-    function borrarfuncionario(identificacion) {
-        axios.post('http://localhost:3001/api/funcionario/borrarfuncionario', 
-        {idfuncionario: identificacion}).then(res => {
+    function borrarparqueo(numero) {
+        axios.post('http://localhost:3001/api/parqueo/borrarparqueo', 
+        {idNumero: numero}).then(res => {
             //console.log(res.data)
             alert(res.data)
             navegar(0)
@@ -35,38 +35,45 @@ export function FuncionarioEspecifico({funcionario}){
                 <div className="col-sm-10 offset-1" data-aos="zoom-in">
                     <ul className="list-group">
                         <li className="list-group-item">
-                            Identificacion: {funcionario.Identificacion}
+                            Numero: {parqueo.Numero}
                         </li>
                         <li className="list-group-item">
-                            Nombre: {funcionario.Nombre}
+                            Nombre: {parqueo.Nombre}
                         </li>
                         <li className="list-group-item">
-                            Celular: {funcionario.Celular}
+                            Tipo: {parqueo.Tipo}
                         </li>
                         <li className="list-group-item">
-                            Correo: {funcionario.Correo}
+                            Ubicacion: {parqueo.Ubicacion}
                         </li>
                         <li className="list-group-item">
-                            Departamento: {funcionario.Departamento}
+                            Encargado: {parqueo.Encargado}
                         </li>
                         <li className="list-group-item">
-                            Puesto: {funcionario.Puesto}
+                            Numero del Encargado: {parqueo.NumeroEncargado}
                         </li>
                         <li className="list-group-item">
-                            Sede: {funcionario.Sede}
+                            Espacios Disponibles: {parqueo.Espacios}
                         </li>
                         <li className="list-group-item">
-                            Usuario: {funcionario.Usuario}
+                            Espacios para Visitantes: {parqueo.EspaciosVisitantes}
+                        </li>
+                        <li className="list-group-item">
+                            Espacios para uso Oficial: {parqueo.EspaciosOficiales}
+                        </li>
+                        <li className="list-group-item">
+                            Espacios Reservados: {parqueo.EspaciosReservados}
+                        </li>
+                        <li className="list-group-item">
+                            Espacios para Discapacitados: {parqueo.EspaciosDiscapacitados}
                         </li>
                     </ul>
                     <br />
-                    <Link to={`/horariofuncionario/${funcionario.Identificacion}`}><li className="btn btn-outline-dark">Horario</li></Link>
+                    <Link to={`/horarioparqueo/${parqueo.Numero}`}><li className="btn btn-outline-dark">Horario</li></Link>
                     &nbsp;
-                    <Link to={`/placasfuncionario/${funcionario.Identificacion}`}><li className="btn btn-outline-dark">Placas registradas</li></Link>
+                    <Link to={`/editarparqueo/${parqueo.Numero}`}><li className="btn btn-outline-warning">Editar</li></Link>
                     &nbsp;
-                    <Link to={`/editarfuncionario/${funcionario.Identificacion}`}><li className="btn btn-outline-warning">Editar</li></Link>
-                    &nbsp;
-                    <button className="btn btn-outline-danger" onClick={()=>{borrarfuncionario(funcionario.Identificacion)}}>Borrar</button>
+                    <button className="btn btn-outline-danger" onClick={()=>{borrarparqueo(parqueo.Numero)}}>Borrar</button>
                     <hr className="mt-4"></hr>
                 </div> 
             </div>

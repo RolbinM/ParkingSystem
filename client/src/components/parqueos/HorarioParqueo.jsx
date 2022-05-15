@@ -6,7 +6,7 @@ import AOS from 'aos'
 import {MenuAdmin} from "../MenuAdmin"
 
 
-export function HorarioFuncionario(){
+export function HorarioParqueo(){
 
     //Para animacion
     useEffect(()=>{
@@ -19,11 +19,10 @@ export function HorarioFuncionario(){
     const [datahorario, sethorario]=useState([])
 
     useEffect(() => {
-        axios.post('http://localhost:3001/api/funcionario/obtenerhorariofuncionario', 
-        {idfuncionario: params.idfuncionario}).then(res => {
-            const datafuncionario = res.data[0]
-            sethorario(datafuncionario.Horario)
-            //console.log(datahorario)
+        axios.post('http://localhost:3001/api/parqueo/obtenerhorarioparqueo', 
+        {idNumero: params.idparqueo}).then(res => {
+            const dataparqueo = res.data[0]
+            sethorario(dataparqueo.Horario)
         }) 
     }, [])
 
@@ -49,7 +48,7 @@ export function HorarioFuncionario(){
                         </li>
                     </ul>
                     <br />
-                    <Link to={`/editarhorariofuncionario/${params.idfuncionario},${item.day}`}><li className="btn btn-outline-warning">Editar</li></Link>
+                    <Link to={`/editarhorarioparqueo/${params.idparqueo},${item.day}`}><li className="btn btn-outline-warning">Editar</li></Link>
                     <hr className="mt-4"></hr>
                 </div> 
             </div>
@@ -64,7 +63,7 @@ export function HorarioFuncionario(){
             <MenuAdmin/>
                 <div>
                     <h2>
-                        Horario de {params.idfuncionario}
+                        Horario de {params.idparqueo}
                     </h2>
                         {display}
                     <br></br>

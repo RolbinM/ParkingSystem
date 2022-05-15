@@ -1,17 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {FuncionarioEspecifico} from "./FuncionarioEspecifico"
+import {ParqueoEspecifico} from "./ParqueoEspecifico"
 import {MenuAdmin} from "../MenuAdmin"
 
 
-export function ListaFuncionarios(){
+export function ListaParqueos(){
 
-    const[datafuncionario, setdatafuncionario]=useState([])
+    const[dataparqueo, setdataparqueo]=useState([])
 
     useEffect(() => {
-        axios.get("http://localhost:3001/api/funcionario/obtenerfuncionarios").then(res =>{
-            console.log(res.data)
-            setdatafuncionario(res.data)
+        axios.get("http://localhost:3001/api/parqueo/obtenerparqueos").then(res =>{
+            setdataparqueo(res.data)
         }).catch(err => {
             console.log(err)
         })
@@ -19,10 +18,10 @@ export function ListaFuncionarios(){
 
 
     //Mapear lista usuarios en objeto usuario
-    const listafuncionarios = datafuncionario.map(funcionario => {
+    const listaparqueos = dataparqueo.map(parqueo => {
         return (
             <div>
-                <FuncionarioEspecifico funcionario={funcionario}/>
+                <ParqueoEspecifico parqueo={parqueo}/>
             </div>
         )
     })
@@ -32,11 +31,11 @@ export function ListaFuncionarios(){
             <MenuAdmin/>
             <div>
                 <h2>
-                    Lista de funcionarios
+                    Lista de Parqueos
                 
                 </h2>
                 <br></br>
-                {listafuncionarios}
+                {listaparqueos}
             </div>
         </div>
     )

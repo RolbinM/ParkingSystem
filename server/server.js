@@ -23,13 +23,17 @@ app.use(cors(corsOptions)) // Use this after the variable declaration
 //Conexion a la BD
 const archivoBD = require('./conexion')
 
-//importar rutas y modelos
+//importar rutas y modelos de los usuarios
 const rutafuncionario = require('./rutas/usuario')
 app.use('/api/funcionario', rutafuncionario)
 
+//importar rutas y modelos de los administrador
+const rutaadmin = require('./rutas/administrador')
+app.use('/api/administrador', rutaadmin)
 
-//importar body parser
-
+//importar rutas y modelos de los parqueo
+const rutaparqueo = require('./rutas/parqueo')
+app.use('/api/parqueo', rutaparqueo)
 
 
 
@@ -44,4 +48,4 @@ app.set('port', process.env.PORT || 3001);
 // starting the server
 app.listen(app.get('port'), () => {
     console.log(`server on port ${app.get('port')}`);
-  });
+});

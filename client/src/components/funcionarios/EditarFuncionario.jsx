@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from 'sweetalert2'
+import {MenuAdmin} from "../MenuAdmin"
 
 export function EditarFuncionario(){
 
@@ -10,7 +11,9 @@ export function EditarFuncionario(){
     const [nombre, setNombre]=useState('')
     //const [identificacion, setCedula]=useState('')
     const [celular, setCelular]=useState('')
-    const [escuela, setEscuela]=useState('')
+    const [correo, setCorreo]=useState('')
+    const [departamento, setDepartamento]=useState('')
+    const [puesto, setPuesto]=useState('')
     const [placa, setPlaca]=useState('')
     const [sede, setSede]=useState('')
     const [usuario, setUsuario]=useState('')
@@ -26,7 +29,9 @@ export function EditarFuncionario(){
             const datafuncionario = res.data[0]
             setNombre(datafuncionario.Nombre)
             setCelular(datafuncionario.Celular)
-            setEscuela(datafuncionario.Escuela)
+            setCorreo(datafuncionario.Correo)
+            setDepartamento(datafuncionario.Departamento)
+            setPuesto(datafuncionario.Puesto)
             setSede(datafuncionario.Sede)
             setUsuario(datafuncionario.Usuario)
             setPlaca(datafuncionario.Placas)
@@ -42,7 +47,9 @@ export function EditarFuncionario(){
             Nombre: nombre,
             Identificacion: params.idfuncionario,
             Celular: celular,
-            Escuela: escuela,
+            Correo: correo,
+            Departamento: departamento,
+            Puesto: puesto,
             Placas: placa,
             Sede: sede,
             Usuario: usuario,
@@ -55,7 +62,7 @@ export function EditarFuncionario(){
         .then (res => {
                 console.log(res.data)
                 Swal.fire('Correcto', 'El usuario ha sido actualizado')
-                navegar('/')
+                navegar('/listafuncionarios')
 
         })
         .then (err => {console.log(err.response.data)})
@@ -63,6 +70,8 @@ export function EditarFuncionario(){
     }
 
     return(
+        <div className="App" align="Center">
+        <MenuAdmin/>
         <div className="container">
             <div className="row">
                         <h2 className="mt-4"> Editar usuario</h2>
@@ -83,9 +92,21 @@ export function EditarFuncionario(){
                     </div>
 
                     <div className="mb-3">
-                                <label htmlFor="escuela" className="form-label">Escuela</label>
-                                <input type="text" className="form-control" value={escuela} 
-                                        onChange={(e)=> {setEscuela(e.target.value)}}></input>
+                                <label htmlFor="correo" className="form-label">Correo</label>
+                                <input type="tex" className="form-control" value={correo} 
+                                        onChange={(e)=> {setCorreo(e.target.value)}}></input>
+                    </div>
+
+                    <div className="mb-3">
+                                <label htmlFor="departamento" className="form-label">Departamento</label>
+                                <input type="text" className="form-control" value={departamento} 
+                                        onChange={(e)=> {setDepartamento(e.target.value)}}></input>
+                    </div>
+
+                    <div className="mb-3">
+                                <label htmlFor="puesto" className="form-label">Puesto</label>
+                                <input type="text" className="form-control" value={puesto} 
+                                        onChange={(e)=> {setPuesto(e.target.value)}}></input>
                     </div>
 
                     <div className="mb-3">
@@ -102,6 +123,7 @@ export function EditarFuncionario(){
                     <button onClick={editarfuncionario} className="btn btn-success">Editar Usuario</button>
                     </div>
                 </div>
+        </div>
         </div>
     )
 

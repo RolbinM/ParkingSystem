@@ -4,6 +4,7 @@ import Swal from 'sweetalert2'
 import axios from 'axios'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import {MenuAdmin} from "../MenuAdmin"
 
 export function PlacasFuncionario({funcionario}){
 
@@ -32,7 +33,7 @@ export function PlacasFuncionario({funcionario}){
         axios.post('http://localhost:3001/api/funcionario/agregarplacafuncionario', 
         {idfuncionario: params.idfuncionario, idplaca: placa}).then(res => {
             Swal.fire('Agregado', 'La placa ha sido registrada')
-            navegar('/')
+            navegar('/listafuncionarios')
         }).catch(err => {
             console.log(err)
         })
@@ -44,7 +45,7 @@ export function PlacasFuncionario({funcionario}){
             {idfuncionario: identificacion, idplaca: placa}).then(res => {
                 console.log(identificacion)
                 Swal.fire('Eliminado', 'La placa ha sido borrada')
-                navegar('/')
+                navegar('/listafuncionarios')
             }).catch(err => {
                 console.log(err)
             })
@@ -54,6 +55,7 @@ export function PlacasFuncionario({funcionario}){
     //Mapear lista usuarios en objeto usuario
     const listaplacas = datafuncionario.map(placa => {
         return (
+            
             <div className="container">
             <div className="row">
                 <div className="col-sm-10 offset-1" data-aos="fade-down-left">
@@ -69,12 +71,15 @@ export function PlacasFuncionario({funcionario}){
                 </div> 
             </div>
         </div>
+        
         )
     }
   
     )
 
     return(
+        <div className="App" align="Center">
+        <MenuAdmin/>
         <div>
             <div className="container">
                 <div className="row">
@@ -99,6 +104,8 @@ export function PlacasFuncionario({funcionario}){
             <br></br>
             {listaplacas}
         </div>
+    </div>
+
     </div>
     )
 

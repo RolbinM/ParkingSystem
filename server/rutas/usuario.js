@@ -18,7 +18,7 @@ const schemaFuncionario = Schema ({
         type:Number,
         requiered:false,
     },
-    Escuela:{
+    Correo:{
         type:String,
         requiered:false,
     },
@@ -31,6 +31,14 @@ const schemaFuncionario = Schema ({
         requiered:false,
     },
     Sede:{
+        type:String,
+        requiered:false,
+    },
+    Departamento:{
+        type:String,
+        requiered:false,
+    },
+    Puesto:{
         type:String,
         requiered:false,
     },
@@ -55,9 +63,11 @@ router.post ('/agregarfuncionario', async(req,res)=>{
         Identificacion: req.body.Identificacion,
         Nombre: req.body.Nombre,
         Celular: req.body.Celular,
-        Escuela:req.body.Escuela,
+        Correo: req.body.Correo,
         Placas:req.body.Placas,
         Sede: req.body.Sede,
+        Departamento:req.body.Departamento,
+        Puesto:req.body.Puesto,
         Usuario: req.body.Usuario,
         Passwrd: req.body.Passwrd,
         Horario: req.body.Horario
@@ -103,13 +113,15 @@ router.post ('/obtenerdatafuncionario', async(req,res)=>{
 
 //actualizar funcionarios
 router.post ('/actualizafuncionario', async(req,res)=>{
-    
     ModeloFuncionario.findOneAndUpdate({Identificacion:req.body.Identificacion},{
         Nombre: req.body.Nombre,
         Celular: req.body.Celular,
+        Correo: req.body.Correo,
         Escuela:req.body.Escuela,
         Placas:req.body.Placas,
         Sede: req.body.Sede,
+        Departamento:req.body.Departamento,
+        Puesto:req.body.Puesto,
         Usuario: req.body.Usuario,
         Passwrd: req.body.Passwrd,
         Horario: req.body.Horario
@@ -188,7 +200,6 @@ router.post ('/agregarplacafuncionario', async(req,res)=>{
 
 //actualiza horario funcionarios
 router.post ('/editarhorariofuncionario', async(req,res)=>{
-
     ModeloFuncionario.findOneAndUpdate({Identificacion:req.body.idfuncionario}, {
         $pull:{Horario : {day:req.body.iddia}}
         },

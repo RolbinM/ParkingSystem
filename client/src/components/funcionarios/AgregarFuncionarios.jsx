@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
+import {MenuAdmin} from "../MenuAdmin"
 export function AgregarFuncionarios(){
 
         //hooks
         const [nombre, setNombre]=useState('')
         const [identificacion, setCedula]=useState('')
         const [celular, setCelular]=useState('')
-        const [escuela, setEscuela]=useState('')
+        const [correo, setCorreo]=useState('')
+        const [departamento, setDepartamento]=useState('')
+        const [puesto, setPuesto]=useState('')
         const [placa, setPlaca]=useState('')
         const [sede, setSede]=useState('')
         const [usuario, setUsuario]=useState('')
@@ -21,7 +24,9 @@ export function AgregarFuncionarios(){
                         Nombre: nombre,
                         Identificacion: identificacion,
                         Celular: celular,
-                        Escuela: escuela,
+                        Correo: correo,
+                        Departamento: departamento,
+                        Puesto: puesto,
                         Placas: placa,
                         Sede: sede,
                         Usuario: usuario,
@@ -70,12 +75,14 @@ export function AgregarFuncionarios(){
                 .then (res => {
                         //alert(res.data)
                         Swal.fire('Correcto', 'El usuario ha sido creado')
-                        navegar('/')
+                        navegar('/listafuncionarios')
                 })
                 .then (err => {console.log(err.response.data)})
         }
 
         return(
+        <div className="App" align="Center">
+                <MenuAdmin/>
                 <div className="container">
                 <div className="row">
                         <h2 className="mt-4"> Insertar un nuevo usuario</h2>
@@ -102,9 +109,21 @@ export function AgregarFuncionarios(){
                         </div>
 
                         <div className="mb-3">
-                                <label htmlFor="escuela" className="form-label">Escuela</label>
-                                <input type="text" className="form-control" value={escuela} 
-                                        onChange={(e)=> {setEscuela(e.target.value)}}></input>
+                                <label htmlFor="correo" className="form-label">Correo</label>
+                                <input type="text" className="form-control" value={correo} 
+                                        onChange={(e)=> {setCorreo(e.target.value)}}></input>
+                        </div>
+
+                        <div className="mb-3">
+                                <label htmlFor="Departamento" className="form-label">Departamento</label>
+                                <input type="text" className="form-control" value={departamento} 
+                                        onChange={(e)=> {setDepartamento(e.target.value)}}></input>
+                        </div>
+
+                        <div className="mb-3">
+                                <label htmlFor="puesto" className="form-label">Puesto</label>
+                                <input type="text" className="form-control" value={puesto} 
+                                        onChange={(e)=> {setPuesto(e.target.value)}}></input>
                         </div>
 
                         <div className="mb-3">
@@ -135,6 +154,7 @@ export function AgregarFuncionarios(){
                         </div>
                 </div>
                 </div>
+        </div>
         )
 
 
