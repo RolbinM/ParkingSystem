@@ -35,6 +35,10 @@ app.use('/api/administrador', rutaadmin)
 const rutaparqueo = require('./rutas/parqueo')
 app.use('/api/parqueo', rutaparqueo)
 
+//importar reservas y modelos de las reservas
+const rutareserva = require('./rutas/reservas')
+app.use('/api/reserva', rutareserva)
+
 
 
 app.get('/', (req, res)=>{

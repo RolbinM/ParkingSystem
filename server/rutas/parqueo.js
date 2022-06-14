@@ -70,6 +70,7 @@ const ParqueoSchema = new Schema({
 
 
 const ModeloParqueo = mongoose.model("parqueo", ParqueoSchema)
+module.exports = ModeloParqueo
 module.exports = router
 
 
@@ -104,6 +105,17 @@ router.post ('/agregarparqueo', async(req,res)=>{
 //obtener todos los parqueos
 router.get ('/obtenerparqueos', async(req,res)=>{
     ModeloParqueo.find({}, function(docs, err){
+        if(!err){
+            res.send(docs)
+        }else{
+            res.send(err)
+        }
+    })
+})
+
+//obtener todos los parqueos
+router.post ('/obtenerparqueo', async(req,res)=>{
+    ModeloParqueo.find({Numero:req.body.Numero}, function(docs, err){
         if(!err){
             res.send(docs)
         }else{

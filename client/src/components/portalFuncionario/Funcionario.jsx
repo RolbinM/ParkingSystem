@@ -1,34 +1,16 @@
 import React, { useEffect } from "react";
-import {Link, useNavigate} from "react-router-dom";
-import axios from 'axios'
+import {Link} from "react-router-dom";
 //import {ListaPlacas} from "./ListaPlacas";
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
 
-export function ConsultaFuncionarioEspecifico({funcionario}){
-
-    const navegar = useNavigate()
+export function Funcionario({funcionario}){
 
     //Para animacion
     useEffect(()=>{
         AOS.init()
     }, [])
-
-
-    //Funcion para borrar usuario
-    function borrarfuncionario(identificacion) {
-        axios.post('http://localhost:3001/api/funcionario/borrarfuncionario', 
-        {idfuncionario: identificacion}).then(res => {
-            //console.log(res.data)
-            alert(res.data)
-            navegar(0)
-        }).catch(err => {
-            console.log(err)
-        })
-    }
-
-
 
     return(
         <div className="container">
@@ -67,7 +49,6 @@ export function ConsultaFuncionarioEspecifico({funcionario}){
                     &nbsp;
                     <Link to={`/editarfuncionario/${funcionario.Identificacion}`}><li className="btn btn-outline-warning">Editar</li></Link>
                     &nbsp;
-                    <button className="btn btn-outline-danger" onClick={()=>{borrarfuncionario(funcionario.Identificacion)}}>Borrar</button>
                     <hr className="mt-4"></hr>
                 </div> 
             </div>

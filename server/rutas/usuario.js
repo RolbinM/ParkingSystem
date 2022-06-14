@@ -110,6 +110,17 @@ router.post ('/obtenerdatafuncionario', async(req,res)=>{
     })
 })
 
+//obtener data funcionario
+router.post ('/obtenerdatafuncionario2', async(req,res)=>{
+    ModeloFuncionario.find({Usuario:req.body.user}, function(docs, err){
+        if(!err){
+            res.send(docs)
+        }else{
+            res.send(err)
+        }
+    })
+})
+
 
 //actualizar funcionarios
 router.post ('/actualizafuncionario', async(req,res)=>{

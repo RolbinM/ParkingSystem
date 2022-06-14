@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {MenuAdmin} from "../MenuAdmin"
 
 import {ConsultaFuncionarioEspecifico} from "./ConsultaFuncionarioEspecifico"
@@ -17,7 +17,7 @@ export function ReporteConsultaFuncionario(){
         axios.post('http://localhost:3001/api/funcionario/obtenerdatafuncionario', 
         {idfuncionario: params.identi}).then(res => {
             setdatafuncionario(res.data)
-        }) .catch(err => {
+        }).catch(err => {
             console.log(err)
         })
     }, [])

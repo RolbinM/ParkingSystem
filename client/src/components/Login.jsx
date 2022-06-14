@@ -1,4 +1,4 @@
-import React, {Fragment, useState, useRef} from "react";
+import React, {useState} from "react";
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,11 @@ export function Login(){
                 const response = await axios.post('http://localhost:3001/api/administrador/login', {usuario: usuario, contra: contra});               
 
                 if (response.data[0] != null){
-                    navegar('/listafuncionarios')  
+                    
+                    const ruta = "/listafuncionario/"
+                    navegar(ruta.concat(usuario))
+                    console.log(usuario)
+                    //navegar('/listafuncionarios',{usuario: usuario})  
                 } else {
                     Swal('Error','Usuario invalido')
                 }
