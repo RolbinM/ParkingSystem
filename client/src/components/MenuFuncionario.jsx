@@ -25,7 +25,7 @@ export function MenuFuncionario(){
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link" href="">Historial reservas</a>
+                            <a className="nav-link" href={`/reservahistorial/${params.user}`}>Historial reservas</a>
                         </li>
 
                         <li className="nav-item">

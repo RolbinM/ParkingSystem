@@ -7,7 +7,7 @@ const Schema = mongoose.Schema
 
 const ReservaSchema = new Schema({
     IdReserva:{
-        type: Number,
+        type: String,
         required: true
     },
     IdUsuario:{
@@ -22,20 +22,28 @@ const ReservaSchema = new Schema({
         type:String,
         requiered:false,
     },
+    TipoReserva:{
+        type: String,
+        required: true
+    },
     Dia:{
         type: String,
         required: true
     },
     Fecha:{
-        type: Date,
+        type: String,
+        required: true
+    },
+    FechaReserva:{
+        type: String,
         required: true
     },
     HoraEntrada:{
-        type: Date,
+        type: String,
         required: true
     },
     HoraSalida:{
-        type: Date,
+        type: String,
         required: true
     }
 })
@@ -47,32 +55,36 @@ module.exports = router
 
 //agregar parqueos
 router.post ('/agregarreserva', async(req,res)=>{
-    //console.log(req.body);
+    console.log(req.body);
+    const newReserva = new ModeloReserva ({
+        IdReserva: req.body.IdReserva,
+        IdUsuario: req.body.Usuario,
+        IdParqueo: req.body.IdParqueo,
+        Placa: req.body.Placa,
+        TipoReserva: req.body.TipoReserva,
+        Dia: req.body.Dia,
+        Fecha : req.body.Fecha,
+        FechaReserva: req.body.FechaReserva,
+        HoraEntrada : req.body.HoraEntrada,
+        HoraSalida:req.body.HoraSalida,
+    });
 
-    collection.find({Numero:req.body.IdParqueo}, function(docs, err){
+    newReserva.save(function(err){
         if(!err){
-            //const cantidadEspacios = docs.data.Espacios
+            res.send('Reserva agregada correctamente')
+        }else{
+            res.send(err)
+        }
+    })
+})
+
+//obtener data funcionario
+router.post ('/obtenerreservasfuncionario', async(req,res)=>{
+    ModeloReserva.find({IdUsuario:req.body.identificacion}, function(docs, err){
+        if(!err){
             res.send(docs)
         }else{
             res.send(err)
         }
     })
-
-    // const newReserva = new ModeloReserva ({
-    //     IdReserva: req.body.Numero,
-    //     IdUsuario: req.body.Nombre,
-    //     IdParqueo: req.body.Tipo,
-    //     Placa: req.body.Ubicacion,
-    //     Fecha : req.body.Encargado,
-    //     HoraEntrada : req.body.NumeroEncargado,
-    //     HoraSalida:req.body.Horario,
-    // });
-
-    // newParqueo.save(function(err){
-    //     if(!err){
-    //         res.send('Parqueo agregado correctamente')
-    //     }else{
-    //         res.send(err)
-    //     }
-    // })
 })
