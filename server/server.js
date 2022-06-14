@@ -39,7 +39,9 @@ app.use('/api/parqueo', rutaparqueo)
 const rutareserva = require('./rutas/reservas')
 app.use('/api/reserva', rutareserva)
 
-
+//importar reservasVisitas y modelos de las reservas
+const rutareserva = require('./rutas/reservaInvitado')
+app.use('/api/reservaInvitado', rutareservainvitado)
 
 app.get('/', (req, res)=>{
     res.end('Bienvenidos al servidor, ejecutandose...')
