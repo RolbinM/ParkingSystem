@@ -6,8 +6,11 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {createRoot} from 'react-dom/client';
 
 import {Login} from "./components/Login"
-import { ListaFuncionario } from "./components/portalFuncionario/ListaFuncionario";
-//import { ListaFuncionarios } from "./components/funcionarios/ListaFuncionarios";
+import {LoginAdministrador} from "./components/LoginAdministrador"
+import {LoginFuncionario} from "./components/LoginFuncionarios"
+import {LoginParqueo} from "./components/LoginParqueo"
+
+import {ListaFuncionarios} from "./components/funcionarios/ListaFuncionarios";
 import {AgregarFuncionarios} from "./components/funcionarios/AgregarFuncionarios";
 import {EditarFuncionario} from "./components/funcionarios/EditarFuncionario"
 import {PlacasFuncionario} from "./components/funcionarios/PlacasFuncionario"
@@ -25,6 +28,7 @@ import {ReporteParqueos } from './components/reportes/ReporteParqueos';
 import {ReporteConsultaFuncionario } from './components/reportes/ReporteConsultaFuncionario';
 import {ReporteFranjasHorarias } from './components/reportes/ReporteFranjasHorarias';
 
+import {ListaFuncionario} from "./components/portalFuncionario/ListaFuncionario";
 import { Parqueos } from './components/portalFuncionario/Parqueos';
 import { Reserva } from './components/portalFuncionario/Reserva';
 import { HistorialReservas } from './components/portalFuncionario/HistorialReservas';
@@ -38,6 +42,11 @@ root.render(
         <Routes>
             <Route path='/' element={<Login/> } exact></Route>
 
+            <Route path='/loginAdministrador/' element={<LoginAdministrador/>} exact></Route>
+            <Route path='/loginParqueo/' element={<LoginParqueo/>} exact></Route>
+            <Route path='/loginFuncionario/' element={<LoginFuncionario/>} exact></Route>
+
+            <Route path='/listafuncionarios' element={<ListaFuncionarios/> } exact></Route>
             <Route path='/listafuncionario/:user' element={<ListaFuncionario/> } exact></Route>
             <Route path='/agregarfuncionario' element={<AgregarFuncionarios/>} exact></Route>
             <Route path='/editarfuncionario/:idfuncionario' element={<EditarFuncionario/>} exact></Route>

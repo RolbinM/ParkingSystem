@@ -10,10 +10,10 @@ export function AgregarFuncionarios(){
         const [identificacion, setCedula]=useState('')
         const [celular, setCelular]=useState('')
         const [correo, setCorreo]=useState('')
-        const [departamento, setDepartamento]=useState('')
-        const [puesto, setPuesto]=useState('')
+        const [departamento, setDepartamento]=useState('Computacion')
+        const [puesto, setPuesto]=useState('Regular')
         const [placa, setPlaca]=useState('')
-        const [sede, setSede]=useState('')
+        const [sede, setSede]=useState('San Jose')
         const [usuario, setUsuario]=useState('')
         const [passwrd, setPasswrd]=useState('')
     
@@ -116,14 +116,21 @@ export function AgregarFuncionarios(){
 
                         <div className="mb-3">
                                 <label htmlFor="Departamento" className="form-label">Departamento</label>
-                                <input type="text" className="form-control" value={departamento} 
-                                        onChange={(e)=> {setDepartamento(e.target.value)}}></input>
+
+                                <select className="form-select" name="select" value={departamento} onChange={(e)=> {setDepartamento(e.target.value)}}>
+                                        <option value="Computacion" >Computacion</option>
+                                        <option value="Administracion">Administracion</option>
+                                        <option value="RRHH">RRHH</option>
+                                </select>
                         </div>
 
                         <div className="mb-3">
                                 <label htmlFor="puesto" className="form-label">Puesto</label>
-                                <input type="text" className="form-control" value={puesto} 
-                                        onChange={(e)=> {setPuesto(e.target.value)}}></input>
+
+                                <select className="form-select" name="select" value={puesto} onChange={(e)=> {setPuesto(e.target.value)}}>
+                                        <option value="Regular" >Regular</option>
+                                        <option value="Jefatura">Jefatura</option>
+                                </select>
                         </div>
 
                         <div className="mb-3">
@@ -134,8 +141,10 @@ export function AgregarFuncionarios(){
 
                         <div className="mb-3">
                                 <label htmlFor="sede" className="form-label">Sede</label>
-                                <input type="text" className="form-control" required value={sede} 
-                                        onChange={(e)=> {setSede(e.target.value)}}></input>
+
+                                <select className="form-select" name="select" value={sede} onChange={(e)=> {setSede(e.target.value)}}>
+                                        <option value="San Jose" >San Jose</option>
+                                </select>
                         </div>
 
                         <div className="mb-3">

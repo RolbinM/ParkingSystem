@@ -6,28 +6,20 @@ import { useNavigate } from "react-router-dom";
 import fondo from './content/imgLogin.jpg'
 
 export function Login(){
-        const [usuario, setUsuario]=useState('')
-        const [contra, setContra]=useState('')
+
     
         const navegar = useNavigate()
 
         const loginAdministrador = async() =>{         
-            try{             
-                const response = await axios.post('http://localhost:3001/api/administrador/login', {usuario: usuario, contra: contra});               
+            navegar('/loginAdministrador')  
+        }
 
-                if (response.data[0] != null){
-                    
-                    const ruta = "/listafuncionario/"
-                    navegar(ruta.concat(usuario))
-                    console.log(usuario)
-                    //navegar('/listafuncionarios',{usuario: usuario})  
-                } else {
-                    Swal('Error','Usuario invalido')
-                }
-                                  
-            } catch(err){             
-                alert('Usuario invalido')         
-            }                   
+        const loginFuncionario = async() =>{         
+            navegar('/loginFuncionario')  
+        }
+
+        const loginParqueo = async() =>{         
+            navegar('/loginParqueo')  
         }
     
         return (
@@ -43,20 +35,18 @@ export function Login(){
                      
                         <div className="form-row">
                             <div className="col-lg 7">
-                                <input type="text" placeholder="Usuario" name="usuario" required className="form-control my-3 p-4" value={usuario} 
-                                        onChange={(e)=> {setUsuario(e.target.value)}}></input>
+                                <button onClick={loginFuncionario} className="font-weight-bold btn-success  mt-3 mb-5" style={{width: "100%", borderRadius: "50px" , border: "1px solid white"}}><h4>Iniciar Sesión Funcionario</h4></button>
                             </div>
                         </div>
                         <div className="form-row">
                             <div className="col-lg 7">
-                                <input type="password" placeholder="Contraseña" name="contrasena" required className="form-control my-3 p-4" value={contra} 
-                                        onChange={(e)=> {setContra(e.target.value)}}></input>
+                                <button onClick={loginAdministrador} className="font-weight-bold btn-success  mt-3 mb-5" style={{width: "100%", borderRadius: "50px", border: "1px solid white"}}><h4>Iniciar Sesión Administrador</h4></button>
                             </div>
                         </div>
 
                         <div className="form-row">
                             <div className="col-lg 7">
-                                <button onClick={loginAdministrador} class="btn1 mt-3 mb-5">Iniciar Sesión</button>
+                                <button onClick={loginParqueo} className="font-weight-bold btn-success  mt-3 mb-5" style={{width: "100%",borderRadius: "50px", border: "1px solid white"}}><h4>Iniciar Sesión Parqueo</h4></button>
                             </div>
                         </div>
                        

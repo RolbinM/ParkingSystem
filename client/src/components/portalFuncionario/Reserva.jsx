@@ -19,6 +19,8 @@ export function Reserva(){
         const [parqueo, setParqueo]=useState(null)
         const [funcionario, setFuncionario]=useState(null)
         const [fechaReserva, setFechaReserva]=useState(null)
+
+        const [espaciosOcupados, setEspaciosOcupados]=useState(null)
         //const navegar = useNavigate()
 
         useEffect(() => {
@@ -35,19 +37,93 @@ export function Reserva(){
                 })
             }, [])
         
+        function cambiarDatosFuncionario(fecha){
+                const diasFuncionario = funcionario.Horario
+
+                var nombresdias = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+                var dia = new Date(fecha);
+                var nombredia = nombresdias[dia.getDay()];
+
+                for (var diaF of diasFuncionario){
+                        if (diaF.day === nombredia){
+                                var horaEntradaFuncionario = document.getElementById("horaEntradaFuncionario")
+                                horaEntradaFuncionario.value = diaF.start_time
+
+                                var horaSalidaFuncionario = document.getElementById("horaSalidaFuncionario")
+                                horaSalidaFuncionario.value = diaF.end_time
+                        }
+                }
+        }
+
+        function cambiarDatosParqueo(fecha){
+                const dias = parqueo.Horario
+
+                var nombresdias = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+                var dia = new Date(fecha);
+                var nombredia = nombresdias[dia.getDay()];
+
+                for (var dia of dias){
+                        if (dia.day === nombredia){
+                                var horaEntradaParqueo = document.getElementById("horaEntradaParqueo")
+                                horaEntradaParqueo.value = dia.start_time
+
+                                var horaSalidaParqueo = document.getElementById("horaSalidaParqueo")
+                                horaSalidaParqueo.value = dia.end_time
+                        }
+                }
+        }
+
+        function espaciosDisponibles(){
+                
+                axios.post("http://localhost:3001/api/reserva/obtenerreservasportipo", {TipoReserva: "Estandar", FechaReserva: fechaReserva})
+                .then(res => {
+                        var cierre = document.getElementById("horaCierre")
+
+                        var hEntrada = horaEntrada
+                        var hSalida = cierre.value
+
+                        const listaReservas = res.data;
+                        var contador = 0;
+
+                        for(var reserva in listaReservas){
+                                var reservaEntrada = listaReservas[reserva].HoraEntrada
+                                var reservaSalida = listaReservas[reserva].HoraSalida
+
+                                if((reservaEntrada >= hEntrada && reservaSalida > hEntrada) || (reservaEntrada < hSalida && reservaSalida >= hSalida )){
+                                        contador = contador + 1
+                                } else {
+                                        if((reservaEntrada > hEntrada) && (reservaSalida > hSalida)){
+                                                contador = contador + 1
+                                        }
+                                }
+                        }
+
+                        console.log(res.data)
+                        console.log("El contador es: " + contador)
+
+                        setEspaciosOcupados(contador)
+                } )
+        }
         
         function parqueoAbierto(){
                 const dias = parqueo.Horario
                 const diasFuncionario = funcionario.Horario
+
+                var nombresdias = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+                var dia = new Date(fechaReserva);
+                var nombredia = nombresdias[dia.getDay()];
+
+                console.log("Nombre Dia: " + nombredia)
+
                 for (var dia of dias){
-                        if (dia.day === diaReserva){
+                        if (dia.day === nombredia){
                                 var cierre = document.getElementById("horaCierre")
                                 cierre.value = dia.end_time
 
                         }
                 }
                 for (var diaF of diasFuncionario){
-                        if (diaF.day === diaReserva){
+                        if (diaF.day === nombredia){
                                 var finJornada = document.getElementById("finJornada")
                                 finJornada.value = diaF.end_time
                                 if(diaF.end_time <= dia.end_time && horaEntrada >= dia.start_time ){
@@ -69,39 +145,53 @@ export function Reserva(){
         }
         async function agregarReserva(){
                 console.log(params.idparqueo)
-                if(!parqueoAbierto()){
-                //aca va la comprobacion de haya campo
-                var cierre = document.getElementById("horaCierre")
-                console.log(cierre.value)
+                if(parqueoAbierto()){
+                        espaciosDisponibles()
 
-                var finJornada = document.getElementById("finJornada")
-                console.log(finJornada.value)
+                        if(espaciosOcupados < cantidadEspacios){
+                                var cierre = document.getElementById("horaCierre")
+                                console.log(cierre.value)
                 
-                const current = new Date();
-                const date = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
+                                var finJornada = document.getElementById("finJornada")
+                                console.log(finJornada.value)
+                                
+                                const current = new Date();
+                                const date = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
+                                
+                                var nombresdias = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+                                var dia = new Date(fechaReserva);
+                                var nombredia = nombresdias[dia.getDay()];
 
-                var reserva = {
-                         IdReserva: uuidv4(),
-                         Usuario: funcionario.Identificacion,
-                         IdParqueo: params.idparqueo,
-                         Placa: placa,
-                         TipoReserva: "Estandar",
-                         Dia: diaReserva,
-                         Fecha: date,
-                         FechaReserva: fechaReserva,    
-                         HoraEntrada: horaEntrada,
-                         HoraSalida: finJornada.value
-                 }
-
-                 axios.post("http://localhost:3001/api/reserva/agregarreserva", reserva)
-                 .then (res => {
-                         console.log(res.data)
-                         //alert(res.data)
-                         Swal.fire('Correcto', 'La reserva ha sido creado')
-                         //navegar('/listafuncionarios')
-                 }).catch(err => {
-                         console.log(err)
-                     })
+                                var reserva = {
+                                         IdReserva: uuidv4(),
+                                         Usuario: funcionario.Identificacion,
+                                         IdParqueo: params.idparqueo,
+                                         Placa: placa,
+                                         TipoReserva: "Estandar",
+                                         Dia: nombredia,
+                                         Fecha: date,
+                                         FechaReserva: fechaReserva,    
+                                         HoraEntrada: horaEntrada,
+                                         HoraSalida: finJornada.value
+                                 }
+                
+                                 axios.post("http://localhost:3001/api/reserva/agregarreserva", reserva)
+                                 .then (res => {
+                                         console.log(res.data)
+                                         //alert(res.data)
+                                         Swal.fire('Correcto', 'La reserva ha sido creado')
+                                         //navegar('/listafuncionarios')
+                                 }).catch(err => {
+                                         console.log(err)
+                                     })  
+                        }
+                        else {
+                                Swal.fire('Incorrecto', 'No hay espacios disponibles para la reserva')
+                        }
+                
+                }
+                else {
+                        Swal.fire('Incorrecto', 'El parqueo no se encuentra abierto en ese rango de horas')
                 }
                 //console.log(parqueo)
                 //console.log(cantidadEspacios)
@@ -137,24 +227,14 @@ export function Reserva(){
                         <div className="mb-3">
                                 <label htmlFor="fechaReserva" className="form-label">Fecha de la Reserva</label>
                                 <input type="date" className="form-control" defaultValue={fechaReserva} 
-                                        onChange={(e)=> {setFechaReserva(e.target.value)}}></input>
+                                        onChange={(e)=> {
+                                                setFechaReserva(e.target.value)
+                                                cambiarDatosFuncionario(e.target.value)
+                                                cambiarDatosParqueo(e.target.value)
+                                                }}></input>
                         </div>
 
 
-                        <div className="mb-3">
-                                <label htmlFor="diaReserva" className="form-label"> Dia de reserva <br/>
-                                        <select className="form-select" name="select" value={diaReserva} onChange={(e)=> {setdia(e.target.value)}}>
-                                        <br/>
-                                        <option value="sunday" >Domingo</option>
-                                        <option value="monday">Lunes</option>
-                                        <option value="tuesday">Martes</option>
-                                        <option value="wednesday">Miercoles</option>
-                                        <option value="thursday" >Jueves</option>
-                                        <option value="friday">Viernes</option>
-                                        <option value="saturday">Sabado</option>
-                                        </select>
-                                </label>
-                        </div>
 
                         <div className="mb-3">
                                 <label htmlFor="horaEntrada" className="form-label">Hora de Entrada</label>
@@ -164,6 +244,33 @@ export function Reserva(){
                                 <input type="text" id="horaCierre" hidden className="form-control" value=""></input>
                                 <input type="text" id="finJornada" hidden className="form-control" value=""></input>
                         </div>
+
+                        <br /><br />
+                        <div className="mb-3">
+                                <h4>Horario del Funcionario para el día seleccionado</h4>
+                        </div>
+                        <div className="mb-3">
+                                <label htmlFor="horaEntradaFuncionario" className="form-label">Hora de Entrada</label>
+                                <input type="time" className="form-control" id="horaEntradaFuncionario" readOnly></input>
+                        </div>
+                        <div className="mb-3">
+                                <label htmlFor="horaSalidaFuncionario" className="form-label">Hora de Entrada</label>
+                                <input type="time" className="form-control" id="horaSalidaFuncionario" readOnly></input>
+                        </div>
+                        <br />
+                        <div className="mb-3">
+                                <h4>Horario del Parqueo para el día seleccionado</h4>
+                        </div>
+                        <div className="mb-3">
+                                <label htmlFor="horaEntradaParqueo" className="form-label">Hora de Entrada</label>
+                                <input type="time" className="form-control" id="horaEntradaParqueo" readOnly></input>
+                        </div>
+                        <div className="mb-3">
+                                <label htmlFor="horaSalidaParqueo" className="form-label">Hora de Entrada</label>
+                                <input type="time" className="form-control" id="horaSalidaParqueo" readOnly></input>
+                        </div>
+
+
 
                         <button onClick={agregarReserva} className="btn btn-success">Reservar</button>
                         </div>

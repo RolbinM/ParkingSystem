@@ -98,29 +98,38 @@ export function EditarFuncionario(){
                     </div>
 
                     <div className="mb-3">
-                                <label htmlFor="departamento" className="form-label">Departamento</label>
-                                <input type="text" className="form-control" value={departamento} 
-                                        onChange={(e)=> {setDepartamento(e.target.value)}}></input>
-                    </div>
+                                <label htmlFor="Departamento" className="form-label">Departamento</label>
 
-                    <div className="mb-3">
+                                <select className="form-select" name="select" value={departamento} onChange={(e)=> {setDepartamento(e.target.value)}}>
+                                        <option value="Computacion" >Computacion</option>
+                                        <option value="Administracion">Administracion</option>
+                                        <option value="RRHH">RRHH</option>
+                                </select>
+                        </div>
+
+                        <div className="mb-3">
                                 <label htmlFor="puesto" className="form-label">Puesto</label>
-                                <input type="text" className="form-control" value={puesto} 
-                                        onChange={(e)=> {setPuesto(e.target.value)}}></input>
-                    </div>
 
-                    <div className="mb-3">
+                                <select className="form-select" name="select" value={puesto} onChange={(e)=> {setPuesto(e.target.value)}}>
+                                        <option value="Regular" >Regular</option>
+                                        <option value="Jefatura">Jefatura</option>
+                                </select>
+                        </div>
+
+                        <div className="mb-3">
                                 <label htmlFor="sede" className="form-label">Sede</label>
-                                <input type="text" className="form-control" required value={sede} 
-                                        onChange={(e)=> {setSede(e.target.value)}}></input>
-                    </div>
 
-                    <div className="mb-3">
-                                <label htmlFor="usuario" className="form-label">Usuario</label>
-                                <input type="text" className="form-control" required value={usuario} 
-                                        onChange={(e)=> {setUsuario(e.target.value)}}></input>
-                    </div>
-                    <button onClick={editarfuncionario} className="btn btn-success">Editar Usuario</button>
+                                <select className="form-select" name="select" value={sede} onChange={(e)=> {setSede(e.target.value)}}>
+                                        <option value="San Jose" >San Jose</option>
+                                </select>
+                        </div>
+
+                        <div className="mb-3">
+                                    <label htmlFor="usuario" className="form-label">Usuario</label>
+                                    <input type="text" className="form-control" required value={usuario} 
+                                            onChange={(e)=> {setUsuario(e.target.value)}}></input>
+                        </div>
+                        <button onClick={editarfuncionario} className="btn btn-success">Editar Usuario</button>
                     </div>
                 </div>
         </div>

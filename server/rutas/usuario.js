@@ -56,6 +56,17 @@ const schemaFuncionario = Schema ({
 const ModeloFuncionario = mongoose.model('funcionarios',schemaFuncionario)
 module.exports = router
 
+router.post ('/login', async(req,res)=>{
+    ModeloFuncionario.find({Usuario:req.body.usuario, Passwrd:req.body.contra}, function(docs, err){
+        if(!err){
+            res.send(docs)
+        }else{
+            res.send(err)
+        }
+    })
+})
+
+
 //agregar usuarios
 router.post ('/agregarfuncionario', async(req,res)=>{
     //console.log(req.body);
