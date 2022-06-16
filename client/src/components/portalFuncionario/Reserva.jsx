@@ -4,6 +4,7 @@ import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
 import {MenuFuncionario} from "../MenuFuncionario"
 import {useParams } from "react-router-dom";
+import { Modal } from 'react-bootstrap';
 const { v4: uuidv4 } = require('uuid');
 
 
@@ -12,16 +13,17 @@ export function Reserva(){
         //hooks
 
         const [placa, setPlaca]=useState('')
-        const [diaReserva, setdia]=useState("sunday")
         const [horaEntrada, setHoraEntrada]=useState('')
         const [placasList, setPlacas]=useState([])
         const [cantidadEspacios, setEspacios]=useState(null)
         const [parqueo, setParqueo]=useState(null)
         const [funcionario, setFuncionario]=useState(null)
         const [fechaReserva, setFechaReserva]=useState(null)
-
+        const [cantidadReservasUsuario, setCantidadReservasUsuario]=useState(null)
         const [espaciosOcupados, setEspaciosOcupados]=useState(null)
-        //const navegar = useNavigate()
+        const [show, setShow] = useState(true);
+        const navegar = useNavigate()
+
 
         useEffect(() => {
                 axios.post('http://localhost:3001/api/funcionario/obtenerdatafuncionario2', 
@@ -36,6 +38,9 @@ export function Reserva(){
                         setEspacios(res.data[0].Espacios)
                 })
             }, [])
+
+        
+        
         
         function cambiarDatosFuncionario(fecha){
                 const diasFuncionario = funcionario.Horario
@@ -73,17 +78,16 @@ export function Reserva(){
                 }
         }
 
-        function espaciosDisponibles(){
-                
-                axios.post("http://localhost:3001/api/reserva/obtenerreservasportipo", {TipoReserva: "Estandar", FechaReserva: fechaReserva})
+        async function espaciosDisponibles(){
+                await axios.post("http://localhost:3001/api/reserva/obtenerreservasportipo", {TipoReserva: "Estandar", FechaReserva: fechaReserva})
                 .then(res => {
                         var cierre = document.getElementById("horaCierre")
-
                         var hEntrada = horaEntrada
                         var hSalida = cierre.value
 
                         const listaReservas = res.data;
                         var contador = 0;
+                        var contador2 = 0;
 
                         for(var reserva in listaReservas){
                                 var reservaEntrada = listaReservas[reserva].HoraEntrada
@@ -96,12 +100,15 @@ export function Reserva(){
                                                 contador = contador + 1
                                         }
                                 }
+
+                                if(listaReservas[reserva].IdUsuario == funcionario.Identificacion){
+                                        contador2 = contador2 + 1
+                                }
                         }
 
-                        console.log(res.data)
-                        console.log("El contador es: " + contador)
-
+                        setCantidadReservasUsuario(contador2)
                         setEspaciosOcupados(contador)
+
                 } )
         }
         
@@ -112,8 +119,6 @@ export function Reserva(){
                 var nombresdias = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
                 var dia = new Date(fechaReserva);
                 var nombredia = nombresdias[dia.getDay()];
-
-                console.log("Nombre Dia: " + nombredia)
 
                 for (var dia of dias){
                         if (dia.day === nombredia){
@@ -127,7 +132,7 @@ export function Reserva(){
                                 var finJornada = document.getElementById("finJornada")
                                 finJornada.value = diaF.end_time
                                 if(diaF.end_time <= dia.end_time && horaEntrada >= dia.start_time ){
-                                        if(horaEntrada >= diaF.start_time){
+                                        if(horaEntrada >= diaF.start_time && horaEntrada < diaF.end_time){
                                                 return true;      
                                         }
                                         else{
@@ -144,11 +149,9 @@ export function Reserva(){
 
         }
         async function agregarReserva(){
-                console.log(params.idparqueo)
                 if(parqueoAbierto()){
                         espaciosDisponibles()
-
-                        if(espaciosOcupados < cantidadEspacios){
+                        if(espaciosOcupados < cantidadEspacios && cantidadReservasUsuario < 1){
                                 var cierre = document.getElementById("horaCierre")
                                 console.log(cierre.value)
                 
@@ -178,9 +181,9 @@ export function Reserva(){
                                  axios.post("http://localhost:3001/api/reserva/agregarreserva", reserva)
                                  .then (res => {
                                          console.log(res.data)
-                                         //alert(res.data)
                                          Swal.fire('Correcto', 'La reserva ha sido creado')
-                                         //navegar('/listafuncionarios')
+                                         const ruta = "/listafuncionario/"
+                                         navegar(ruta.concat(funcionario.Usuario))
                                  }).catch(err => {
                                          console.log(err)
                                      })  
@@ -191,14 +194,14 @@ export function Reserva(){
                 
                 }
                 else {
-                        Swal.fire('Incorrecto', 'El parqueo no se encuentra abierto en ese rango de horas')
-                }
-                //console.log(parqueo)
-                //console.log(cantidadEspacios)
-                //console.log(funcionario.Identificacion)
 
-              
+                        Swal.fire('Incorrecto', 'El horario indicado no es aceptado por el sistema')
+                }          
         }
+
+        function changeState() {
+                setShow(!show);
+         }        
 
         return(
         <div className="App" align="Center">
@@ -215,7 +218,6 @@ export function Reserva(){
                                 <label htmlFor="placa" className="form-label">Placa</label>
 
                                         <select className="form-select" defaultValue={'DEFAULT'} onChange={(e)=> {setPlaca(e.target.value)}}>
-                                                <option value="DEFAULT" disabled>Placas Disponibles</option>
                                                 {placasList.map((placa) =>{
                                                 return (
                                                         <option  value={placa}> {placa} </option>
@@ -226,7 +228,7 @@ export function Reserva(){
 
                         <div className="mb-3">
                                 <label htmlFor="fechaReserva" className="form-label">Fecha de la Reserva</label>
-                                <input type="date" className="form-control" defaultValue={fechaReserva} 
+                                <input required  type="date" className="form-control"  min={new Date().toISOString().split("T")[0]} defaultValue={fechaReserva} 
                                         onChange={(e)=> {
                                                 setFechaReserva(e.target.value)
                                                 cambiarDatosFuncionario(e.target.value)
@@ -254,7 +256,7 @@ export function Reserva(){
                                 <input type="time" className="form-control" id="horaEntradaFuncionario" readOnly></input>
                         </div>
                         <div className="mb-3">
-                                <label htmlFor="horaSalidaFuncionario" className="form-label">Hora de Entrada</label>
+                                <label htmlFor="horaSalidaFuncionario" className="form-label">Hora de Salida</label>
                                 <input type="time" className="form-control" id="horaSalidaFuncionario" readOnly></input>
                         </div>
                         <br />
@@ -266,13 +268,17 @@ export function Reserva(){
                                 <input type="time" className="form-control" id="horaEntradaParqueo" readOnly></input>
                         </div>
                         <div className="mb-3">
-                                <label htmlFor="horaSalidaParqueo" className="form-label">Hora de Entrada</label>
+                                <label htmlFor="horaSalidaParqueo" className="form-label">Hora de Salida</label>
                                 <input type="time" className="form-control" id="horaSalidaParqueo" readOnly></input>
                         </div>
 
-
-
-                        <button onClick={agregarReserva} className="btn btn-success">Reservar</button>
+                        {show ? (
+                                <button onClick={()=> {changeState();espaciosDisponibles()}} className="btn btn-success">Reservar</button>
+                        ) : (
+                                <button onClick={()=> {changeState();agregarReserva()}} className="btn btn-success">Reservar</button>
+                        )}
+                                        
+                        {/* <button onClick={()=> {espaciosDisponibles(); agregarReserva()}} className="btn btn-success">Reservar</button> */}
                         </div>
                 </div>
                 </div>

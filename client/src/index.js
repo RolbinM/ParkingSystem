@@ -32,6 +32,8 @@ import {ListaFuncionario} from "./components/portalFuncionario/ListaFuncionario"
 import { Parqueos } from './components/portalFuncionario/Parqueos';
 import { Reserva } from './components/portalFuncionario/Reserva';
 import { HistorialReservas } from './components/portalFuncionario/HistorialReservas';
+import { Placas } from './components/portalFuncionario/Placas';
+import { Horario } from './components/portalFuncionario/Horario';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
@@ -68,6 +70,8 @@ root.render(
             <Route path='/parqueos/:user' element={<Parqueos/>} exact></Route>
             <Route path='/reservar/:user,:idparqueo' element={<Reserva/>} exact></Route>
             <Route path='/reservahistorial/:user' element={<HistorialReservas/>} exact></Route>
+            <Route path='/placasfuncionarioespecifico/:idfuncionario,:user' element={<Placas/>} exact></Route>
+            <Route path='/horariofuncionarioespecifico/:idfuncionario,:user' element={<Horario/>} exact></Route>
 
         </Routes>
     </BrowserRouter>

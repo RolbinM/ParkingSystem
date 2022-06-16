@@ -43,12 +43,12 @@ export function Funcionario({funcionario}){
                         </li>
                     </ul>
                     <br />
-                    <Link to={`/horariofuncionario/${funcionario.Identificacion}`}><li className="btn btn-outline-dark">Horario</li></Link>
+                    <Link to={`/horariofuncionarioespecifico/${funcionario.Identificacion},${funcionario.Usuario}`}><li className="btn btn-outline-dark">Horario</li></Link>
                     &nbsp;
-                    <Link to={`/placasfuncionario/${funcionario.Identificacion}`}><li className="btn btn-outline-dark">Placas registradas</li></Link>
+                    <Link to={`/placasfuncionarioespecifico/${funcionario.Identificacion},${funcionario.Usuario} `}><li className="btn btn-outline-dark">Placas registradas</li></Link>
                     &nbsp;
-                    <Link to={`/editarfuncionario/${funcionario.Identificacion}`}><li className="btn btn-outline-warning">Editar</li></Link>
-                    &nbsp;
+                    {/* <Link to={`/editarfuncionario/${funcionario.Identificacion}`}><li className="btn btn-outline-warning">Editar</li></Link>
+                    &nbsp; */}
                     <hr className="mt-4"></hr>
                 </div> 
             </div>
