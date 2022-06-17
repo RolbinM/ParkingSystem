@@ -11,9 +11,13 @@ export function ReservaVisitasJefatura(){
         const params = useParams()
         //hooks
 
-        const [placa, setPlaca]=useState('')
         const [horaEntrada, setHoraEntrada]=useState('')
-        const [placasList, setPlacas]=useState([])
+        const [horaSalida, setHoraSalida]=useState('')
+        const [idVisita, setIdVisita]=useState('')
+        const [nombreVisita, setNombreVisita]=useState('')
+        const [placaVisita, setPlacaVisita]=useState('')
+        const [motivo, setMotivo]=useState('')
+        const [sitioVisita, setSitioVisita]=useState('')
         const [cantidadEspacios, setEspacios]=useState(null)
         const [parqueo, setParqueo]=useState(null)
         const [funcionario, setFuncionario]=useState(null)
@@ -27,7 +31,6 @@ export function ReservaVisitasJefatura(){
         useEffect(() => {
                 axios.post('http://localhost:3001/api/funcionario/obtenerdatafuncionario2', 
                 {user: params.user}).then(res => {
-                        setPlacas(res.data[0].Placas)
                         setFuncionario(res.data[0])
                         
                 })
@@ -39,25 +42,6 @@ export function ReservaVisitasJefatura(){
             }, [])
 
         
-        
-        
-        function cambiarDatosFuncionario(fecha){
-                const diasFuncionario = funcionario.Horario
-
-                var nombresdias = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-                var dia = new Date(fecha);
-                var nombredia = nombresdias[dia.getDay()];
-
-                for (var diaF of diasFuncionario){
-                        if (diaF.day === nombredia){
-                                var horaEntradaFuncionario = document.getElementById("horaEntradaFuncionario")
-                                horaEntradaFuncionario.value = diaF.start_time
-
-                                var horaSalidaFuncionario = document.getElementById("horaSalidaFuncionario")
-                                horaSalidaFuncionario.value = diaF.end_time
-                        }
-                }
-        }
 
         function cambiarDatosParqueo(fecha){
                 const dias = parqueo.Horario
@@ -66,7 +50,7 @@ export function ReservaVisitasJefatura(){
                 var dia = new Date(fecha);
                 var nombredia = nombresdias[dia.getDay()];
 
-                for (var dia of dias){
+                for (dia of dias){
                         if (dia.day === nombredia){
                                 var horaEntradaParqueo = document.getElementById("horaEntradaParqueo")
                                 horaEntradaParqueo.value = dia.start_time
@@ -165,16 +149,21 @@ export function ReservaVisitasJefatura(){
                                 var nombredia = nombresdias[dia.getDay()];
 
                                 var reserva = {
+
                                          IdReserva: uuidv4(),
                                          Usuario: funcionario.Identificacion,
+                                         Visitante: idVisita,
                                          IdParqueo: params.idparqueo,
-                                         Placa: placa,
-                                         TipoReserva: "Estandar",
+                                         NombreV: nombreVisita,
+                                         PlacaV: placaVisita,
+                                         TipoReserva: "Visita",
+                                         Motivo: motivo,
+                                         SitioVisita: sitioVisita,
                                          Dia: nombredia,
                                          Fecha: date,
                                          FechaReserva: fechaReserva,    
                                          HoraEntrada: horaEntrada,
-                                         HoraSalida: finJornada.value
+                                         HoraSalida: horaSalida
                                  }
                 
                                  axios.post("http://localhost:3001/api/reserva/agregarreserva", reserva)
@@ -200,7 +189,9 @@ export function ReservaVisitasJefatura(){
 
         function changeState() {
                 setShow(!show);
-         }        
+         }     
+         
+
 
         return(
         <div className="App" align="Center">
@@ -214,15 +205,38 @@ export function ReservaVisitasJefatura(){
                         <div className="col-sm-6 offset-3">
 
                         <div className="mb-3">
-                                <label htmlFor="placa" className="form-label">Placa</label>
+                                <label htmlFor="idVisita" className="form-label">Cedula Visitante</label>
+                                <input type="number" className="form-control" required value={idVisita} 
+                                        onChange={(e)=> {setIdVisita(e.target.value)}}></input>
+                        </div>
 
-                                        <select className="form-select" defaultValue={'DEFAULT'} onChange={(e)=> {setPlaca(e.target.value)}}>
-                                                {placasList.map((placa) =>{
-                                                return (
-                                                        <option  value={placa}> {placa} </option>
-                                                );
-                                                })}
-                                        </select>
+                        <div className="mb-3">
+                                <label htmlFor="placaVisita" className="form-label">Placa Visitante</label>
+                                <input type="text" className="form-control" required value={placaVisita} 
+                                        onChange={(e)=> {setPlacaVisita(e.target.value)}}></input>
+                        </div>
+
+                        <div className="mb-3">
+                                <label htmlFor="nombreVisita" className="form-label">Nombre Visitante</label>
+                                <input type="text" className="form-control" required value={nombreVisita} 
+                                        onChange={(e)=> {setNombreVisita(e.target.value)}}></input>
+                        </div>
+
+                        <div className="mb-3">
+                                <label htmlFor="motivo" className="form-label">Motivo de la visita</label>
+                                <select className="form-select" name="select" value={motivo} onChange={(e)=> {setMotivo(e.target.value)}}>
+                                        <option value="Oficial" >Oficial</option>
+                                        <option value="Recreativa">Recreativa</option>
+                                        <option value="Reunion">Reunion</option>
+                                        <option value="Evento oficial">Evento oficial</option>
+                                        <option value="Otro">Otro</option>
+                                </select>
+                        </div>
+
+                        <div className="mb-3">
+                                <label htmlFor="sitioVisita" className="form-label">Sitio de la visita</label>
+                                <input type="text" className="form-control" required value={sitioVisita} 
+                                        onChange={(e)=> {setSitioVisita(e.target.value)}}></input>
                         </div>
 
                         <div className="mb-3">
@@ -230,12 +244,9 @@ export function ReservaVisitasJefatura(){
                                 <input required  type="date" className="form-control"  min={new Date().toISOString().split("T")[0]} defaultValue={fechaReserva} 
                                         onChange={(e)=> {
                                                 setFechaReserva(e.target.value)
-                                                cambiarDatosFuncionario(e.target.value)
                                                 cambiarDatosParqueo(e.target.value)
                                                 }}></input>
                         </div>
-
-
 
                         <div className="mb-3">
                                 <label htmlFor="horaEntrada" className="form-label">Hora de Entrada</label>
@@ -246,17 +257,10 @@ export function ReservaVisitasJefatura(){
                                 <input type="text" id="finJornada" hidden className="form-control" value=""></input>
                         </div>
 
-                        <br /><br />
                         <div className="mb-3">
-                                <h4>Horario del Funcionario para el día seleccionado</h4>
-                        </div>
-                        <div className="mb-3">
-                                <label htmlFor="horaEntradaFuncionario" className="form-label">Hora de Entrada</label>
-                                <input type="time" className="form-control" id="horaEntradaFuncionario" readOnly></input>
-                        </div>
-                        <div className="mb-3">
-                                <label htmlFor="horaSalidaFuncionario" className="form-label">Hora de Salida</label>
-                                <input type="time" className="form-control" id="horaSalidaFuncionario" readOnly></input>
+                                <label htmlFor="horaSalida" className="form-label">Hora de Salida</label>
+                                <input type="time" className="form-control" value={horaSalida} 
+                                        onChange={(e)=> {setHoraSalida(e.target.value)}}></input>
                         </div>
                         <br />
                         <div className="mb-3">

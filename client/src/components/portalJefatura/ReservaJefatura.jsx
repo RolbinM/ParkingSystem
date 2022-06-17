@@ -230,8 +230,6 @@ export function ReservaJefatura(){
                                                 }}></input>
                         </div>
 
-
-
                         <div className="mb-3">
                                 <label htmlFor="horaEntrada" className="form-label">Hora de Entrada</label>
                                 <input type="time" className="form-control" value={horaEntrada} 
