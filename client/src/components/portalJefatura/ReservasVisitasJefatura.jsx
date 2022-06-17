@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
-import {MenuFuncionario} from "../MenuFuncionario"
+import { MenuJefatura } from "../MenuJefatura";
 import {useParams } from "react-router-dom";
 const { v4: uuidv4 } = require('uuid');
 
 
-export function Reserva(){
+export function ReservaVisitasJefatura(){
         const params = useParams()
         //hooks
 
@@ -181,8 +181,8 @@ export function Reserva(){
                                  .then (res => {
                                          console.log(res.data)
                                          Swal.fire('Correcto', 'La reserva ha sido creado')
-                                         const ruta = "/listafuncionario/"
-                                         navegar(ruta.concat(funcionario.Usuario))
+                                         const ruta = "/listadirector/"
+                                         navegar(ruta.concat(params.user))
                                  }).catch(err => {
                                          console.log(err)
                                      })  
@@ -204,7 +204,7 @@ export function Reserva(){
 
         return(
         <div className="App" align="Center">
-                <MenuFuncionario/>
+                <MenuJefatura/>
                 <div className="container">
                 <div className="row">
                         <h2 className="mt-4"> Generar reserva</h2>

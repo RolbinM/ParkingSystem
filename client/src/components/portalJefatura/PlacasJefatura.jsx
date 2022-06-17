@@ -4,9 +4,9 @@ import Swal from 'sweetalert2'
 import axios from 'axios'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import {MenuFuncionario} from "../MenuFuncionario"
+import { MenuJefatura } from "../MenuJefatura";
 
-export function Placas({funcionario}){
+export function PlacasJefatura({funcionario}){
 
     const params = useParams()
     const navegar = useNavigate()
@@ -33,7 +33,8 @@ export function Placas({funcionario}){
         axios.post('http://localhost:3001/api/funcionario/agregarplacafuncionario', 
         {idfuncionario: params.idfuncionario, idplaca: placa}).then(res => {
             Swal.fire('Agregado', 'La placa ha sido registrada')
-            navegar('/listafuncionarios')
+            const ruta = "/listadirector/"
+            navegar(ruta.concat(params.user))
         }).catch(err => {
             console.log(err)
         })
@@ -45,7 +46,8 @@ export function Placas({funcionario}){
             {idfuncionario: identificacion, idplaca: placa}).then(res => {
                 console.log(identificacion)
                 Swal.fire('Eliminado', 'La placa ha sido borrada')
-                navegar('/listafuncionarios')
+                const ruta = "/listadirector/"
+                navegar(ruta.concat(params.user))
             }).catch(err => {
                 console.log(err)
             })
@@ -79,7 +81,7 @@ export function Placas({funcionario}){
 
     return(
         <div className="App" align="Center">
-        <MenuFuncionario/>
+        <MenuJefatura/>
         <div>
             <div className="container">
                 <div className="row">

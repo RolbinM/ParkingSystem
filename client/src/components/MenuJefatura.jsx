@@ -1,23 +1,23 @@
 import React from "react";
 import {useParams } from "react-router-dom";
 
-export function MenuFuncionario(){
+export function MenuJefatura(){
     const params = useParams()
     return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container">
-                    <a className="navbar-brand" href={`/listafuncionario/${params.user}`}>Menu de Funcionario</a>
+                    <a className="navbar-brand" href={`/listadirector/${params.user}`}>Menu de Director</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <a className="nav-link"  href={`/listafuncionario/${params.user}`}>Mi perfil</a>
+                            <a className="nav-link"  href={`/listadirector/${params.user}`}>Mi perfil</a>
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link" href={`/parqueos/${params.user}`}>Parqueos</a>
+                            <a className="nav-link" href={`/parqueosjefatura/${params.user}`}>Parqueos</a>
                         </li>
 
                         <li className="nav-item">
@@ -25,7 +25,11 @@ export function MenuFuncionario(){
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link" href={`/reservahistorial/${params.user}`}>Historial reservas</a>
+                            <a className="nav-link" href={`/historialreservasjefatura/${params.user}`}>Historial reservas</a>
+                        </li>
+
+                        <li className="nav-item">
+                            <a className="nav-link" href={`/historialreservasinvitadojefatura/${params.user}`}>Historial reservas visitas</a>
                         </li>
 
                         <li className="nav-item">

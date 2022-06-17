@@ -63,7 +63,7 @@ const ReservaInvitadoSchema = new Schema({
 })
 
 
-const ModeloReservaInvitado = mongoose.model("reserva", ReservaInvitadoSchema)
+const ModeloReservaInvitado = mongoose.model("reservainvitado", ReservaInvitadoSchema)
 module.exports = router
 
 
@@ -99,6 +99,30 @@ router.post ('/agregarreservainvitado', async(req,res)=>{
 //obtener data funcionario
 router.post ('/obtenerreservasinvitado', async(req,res)=>{
     ModeloReservaInvitado.find({}, function(docs, err){
+        if(!err){
+            res.send(docs)
+        }else{
+            res.send(err)
+        }
+    })
+})
+
+//obtener data funcionario
+router.post ('/obtenerreservasinvitadoId', async(req,res)=>{
+    ModeloReservaInvitado.find({IdUsuario:req.body.identificacion}, function(docs, err){
+        if(!err){
+            res.send(docs)
+        }else{
+            res.send(err)
+        }
+    })
+})
+
+
+
+//obtener data reserva por tipo 
+router.post ('/obtenerreservasinvitadoportipo', async(req,res)=>{
+    ModeloReserva.find({TipoReserva:req.body.TipoReserva,FechaReserva:req.body.FechaReserva}, function(docs, err){
         if(!err){
             res.send(docs)
         }else{

@@ -16,9 +16,9 @@ export function LoginFuncionario(){
                 const response = await axios.post('http://localhost:3001/api/funcionario/login', {usuario: usuario, contra: contra});               
 
                 if (response.data[0] != null){
-                    if (response.data[0].Puesto == "Jefatura")
+                    if (response.data[0].Puesto === "Jefatura")
                     {
-                        const ruta = "/listafuncionario/"
+                        const ruta = "/listadirector/"
                         navegar(ruta.concat(usuario))
                     } else {
                         const ruta = "/listafuncionario/"

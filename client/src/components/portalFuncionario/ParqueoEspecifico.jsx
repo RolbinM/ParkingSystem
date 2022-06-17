@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 
 import AOS from 'aos'

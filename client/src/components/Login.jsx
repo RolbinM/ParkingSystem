@@ -1,6 +1,4 @@
-import React, {useState} from "react";
-import axios from 'axios'
-import Swal from 'sweetalert2'
+import React from "react";
 import { useNavigate } from "react-router-dom";
 //import './css/estiloLogin.css'
 import fondo from './content/imgLogin.jpg'

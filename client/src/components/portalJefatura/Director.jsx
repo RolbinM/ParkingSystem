@@ -1,32 +1,15 @@
 import React, { useEffect } from "react";
-import {Link, useNavigate} from "react-router-dom";
-import axios from 'axios'
-//import {ListaPlacas} from "./ListaPlacas";
+import {Link} from "react-router-dom";
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
 
-export function FuncionarioEspecifico({funcionario}){
-
-    const navegar = useNavigate()
+export function Director({funcionario}){
 
     //Para animacion
     useEffect(()=>{
         AOS.init()
     }, [])
-
-
-    //Funcion para borrar usuario
-    function borrarfuncionario(identificacion) {
-        axios.post('http://localhost:3001/api/funcionario/borrarfuncionario', 
-        {idfuncionario: identificacion}).then(res => {
-            //console.log(res.data)
-            alert(res.data)
-            navegar(0)
-        }).catch(err => {
-            console.log(err)
-        })
-    }
 
     return(
         <div className="container">
@@ -59,13 +42,12 @@ export function FuncionarioEspecifico({funcionario}){
                         </li>
                     </ul>
                     <br />
-                    <Link to={`/horariofuncionario/${funcionario.Identificacion}`}><li className="btn btn-outline-dark">Horario</li></Link>
+                    <Link to={`/horariodirectorespecifico/${funcionario.Identificacion},${funcionario.Usuario}`}><li className="btn btn-outline-dark">Horario</li></Link>
                     &nbsp;
-                    <Link to={`/placasfuncionario/${funcionario.Identificacion}`}><li className="btn btn-outline-dark">Placas registradas</li></Link>
+                    <Link to={`/placasdirectorespecifico/${funcionario.Identificacion},${funcionario.Usuario} `}><li className="btn btn-outline-dark">Placas registradas</li></Link>
                     &nbsp;
-                    <Link to={`/editarfuncionario/${funcionario.Identificacion}`}><li className="btn btn-outline-warning">Editar</li></Link>
-                    &nbsp;
-                    <button className="btn btn-outline-danger" onClick={()=>{borrarfuncionario(funcionario.Identificacion)}}>Borrar</button>
+                    {/* <Link to={`/editarfuncionario/${funcionario.Identificacion}`}><li className="btn btn-outline-warning">Editar</li></Link>
+                    &nbsp; */}
                     <hr className="mt-4"></hr>
                 </div> 
             </div>

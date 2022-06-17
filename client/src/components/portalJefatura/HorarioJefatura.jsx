@@ -2,10 +2,10 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import {useParams } from "react-router-dom";
 import AOS from 'aos'
-import {MenuFuncionario} from "../MenuFuncionario"
+import { MenuJefatura } from "../MenuJefatura";
 
 
-export function Horario(){
+export function HorarioJefatura(){
 
     //Para animacion
     useEffect(()=>{
@@ -59,7 +59,7 @@ export function Horario(){
     
     return(
         <div className="App" align="Center">
-            <MenuFuncionario/>
+            <MenuJefatura/>
                 <div>
                     <h2>
                         Horario de {params.idfuncionario}

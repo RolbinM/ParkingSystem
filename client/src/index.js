@@ -1,5 +1,4 @@
 import React from 'react';
-import {StrictMode} from 'react';
 //import ReactDOM from 'react-dom';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
@@ -34,6 +33,16 @@ import { Reserva } from './components/portalFuncionario/Reserva';
 import { HistorialReservas } from './components/portalFuncionario/HistorialReservas';
 import { Placas } from './components/portalFuncionario/Placas';
 import { Horario } from './components/portalFuncionario/Horario';
+
+import { ListaDirector } from './components/portalJefatura/ListaDirector';
+import { PlacasJefatura } from './components/portalJefatura/PlacasJefatura'
+import { HorarioJefatura } from './components/portalJefatura/HorarioJefatura';
+import { ParqueosJefatura } from './components/portalJefatura/ParqueosJefatura';
+import { ReservaJefatura } from './components/portalJefatura/ReservaJefatura';
+import { ReservaVisitasJefatura } from './components/portalJefatura/ReservasVisitasJefatura';
+import { HistorialReservasJefatura } from './components/portalJefatura/HistorialReservasJefatura';
+import { HistorialReservasJefaturaVisitas } from './components/portalJefatura/HistorialReservasJefaturaVisitas';
+
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
@@ -72,6 +81,15 @@ root.render(
             <Route path='/reservahistorial/:user' element={<HistorialReservas/>} exact></Route>
             <Route path='/placasfuncionarioespecifico/:idfuncionario,:user' element={<Placas/>} exact></Route>
             <Route path='/horariofuncionarioespecifico/:idfuncionario,:user' element={<Horario/>} exact></Route>
+
+            <Route path='/listadirector/:user'  element={<ListaDirector/> } exact></Route>
+            <Route path='/placasdirectorespecifico/:idfuncionario,:user' element={<PlacasJefatura/>} exact></Route>
+            <Route path='/horariodirectorespecifico/:idfuncionario,:user' element={<HorarioJefatura/>} exact></Route>
+            <Route path='/parqueosjefatura/:user' element={<ParqueosJefatura/>} exact></Route>
+            <Route path='/reservarjefatura/:user,:idparqueo' element={<ReservaJefatura/>} exact></Route>
+            <Route path='/reservarinvitadosjefatura/:user,:idparqueo' element={<ReservaVisitasJefatura/>} exact></Route>
+            <Route path='/historialreservasjefatura/:user' element={<HistorialReservasJefatura/>} exact></Route>
+            <Route path='/historialreservasinvitadojefatura/:user' element={<HistorialReservasJefaturaVisitas/>} exact></Route>
 
         </Routes>
     </BrowserRouter>

@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import {Link} from "react-router-dom";
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
 
-export function Funcionario({funcionario}){
+export function ReservaVisitaEspecifica({reserva}){
 
     //Para animacion
     useEffect(()=>{
@@ -17,37 +16,47 @@ export function Funcionario({funcionario}){
                 <div className="col-sm-10 offset-1" data-aos="zoom-in">
                     <ul className="list-group">
                         <li className="list-group-item">
-                            Identificacion: {funcionario.Identificacion}
+                            IdReserva: {reserva.IdReserva}
                         </li>
                         <li className="list-group-item">
-                            Nombre: {funcionario.Nombre}
+                            IdVisitante: {reserva.IdVisitante}
                         </li>
                         <li className="list-group-item">
-                            Celular: {funcionario.Celular}
+                            Nombre visitante: {reserva.NombreV}
                         </li>
                         <li className="list-group-item">
-                            Correo: {funcionario.Correo}
+                            IdParqueo: {reserva.IdParqueo}
                         </li>
                         <li className="list-group-item">
-                            Departamento: {funcionario.Departamento}
+                            Placa: {reserva.PlacaV}
                         </li>
                         <li className="list-group-item">
-                            Puesto: {funcionario.Puesto}
+                            TipoReserva: {reserva.TipoReserva}
                         </li>
                         <li className="list-group-item">
-                            Sede: {funcionario.Sede}
+                            Motivo: {reserva.Motivo}
                         </li>
                         <li className="list-group-item">
-                            Usuario: {funcionario.Usuario}
+                            SitioVisita: {reserva.SitioVisita}
                         </li>
+                        <li className="list-group-item">
+                            Dia: {reserva.Dia}
+                        </li>
+                        <li className="list-group-item">
+                            Fecha: {reserva.Fecha}
+                        </li>
+                        <li className="list-group-item">
+                            FechaReserva: {reserva.FechaReserva}
+                        </li>
+                        <li className="list-group-item">
+                            HoraEntrada: {reserva.HoraEntrada}
+                        </li>
+                        <li className="list-group-item">
+                            HoraSalida: {reserva.HoraSalida}
+                        </li>
+
                     </ul>
                     <br />
-                    <Link to={`/horariofuncionarioespecifico/${funcionario.Identificacion},${funcionario.Usuario}`}><li className="btn btn-outline-dark">Horario</li></Link>
-                    &nbsp;
-                    <Link to={`/placasfuncionarioespecifico/${funcionario.Identificacion},${funcionario.Usuario} `}><li className="btn btn-outline-dark">Placas registradas</li></Link>
-                    &nbsp;
-                    {/* <Link to={`/editarfuncionario/${funcionario.Identificacion}`}><li className="btn btn-outline-warning">Editar</li></Link>
-                    &nbsp; */}
                     <hr className="mt-4"></hr>
                 </div> 
             </div>

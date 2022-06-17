@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
-import {MenuFuncionario} from "../MenuFuncionario"
+import { MenuJefatura } from "../MenuJefatura";
 import {useParams } from "react-router-dom";
 const { v4: uuidv4 } = require('uuid');
 
 
-export function Reserva(){
+export function ReservaJefatura(){
         const params = useParams()
         //hooks
 
@@ -53,8 +53,6 @@ export function Reserva(){
                                 var horaEntradaFuncionario = document.getElementById("horaEntradaFuncionario")
                                 horaEntradaFuncionario.value = diaF.start_time
 
-                                var horaSalidaFuncionario = document.getElementById("horaSalidaFuncionario")
-                                horaSalidaFuncionario.value = diaF.end_time
                         }
                 }
         }
@@ -66,7 +64,7 @@ export function Reserva(){
                 var dia = new Date(fecha);
                 var nombredia = nombresdias[dia.getDay()];
 
-                for (var dia of dias){
+                for (dia of dias){
                         if (dia.day === nombredia){
                                 var horaEntradaParqueo = document.getElementById("horaEntradaParqueo")
                                 horaEntradaParqueo.value = dia.start_time
@@ -78,7 +76,7 @@ export function Reserva(){
         }
 
         async function espaciosDisponibles(){
-                await axios.post("http://localhost:3001/api/reserva/obtenerreservasportipo", {TipoReserva: "Estandar", FechaReserva: fechaReserva})
+                await axios.post("http://localhost:3001/api/reserva/obtenerreservasportipo", {TipoReserva: "Jefatura", FechaReserva: fechaReserva})
                 .then(res => {
                         var cierre = document.getElementById("horaCierre")
                         var hEntrada = horaEntrada
@@ -100,7 +98,7 @@ export function Reserva(){
                                         }
                                 }
 
-                                if(listaReservas[reserva].IdUsuario == funcionario.Identificacion){
+                                if(listaReservas[reserva].IdUsuario === funcionario.Identificacion){
                                         contador2 = contador2 + 1
                                 }
                         }
@@ -130,14 +128,8 @@ export function Reserva(){
                         if (diaF.day === nombredia){
                                 var finJornada = document.getElementById("finJornada")
                                 finJornada.value = diaF.end_time
-                                if(diaF.end_time <= dia.end_time && horaEntrada >= dia.start_time ){
-                                        if(horaEntrada >= diaF.start_time && horaEntrada < diaF.end_time){
-                                                return true;      
-                                        }
-                                        else{
-                                                return false;
-
-                                        }
+                                if(horaEntrada >= dia.start_time ){
+                                        return true;
                                 }
                                 else{
                                         return false;
@@ -164,25 +156,28 @@ export function Reserva(){
                                 var dia = new Date(fechaReserva);
                                 var nombredia = nombresdias[dia.getDay()];
 
+                                var horaSalidaParqueo = document.getElementById("horaSalidaParqueo")
+                                horaSalidaParqueo.value = dia.end_time
+                                
                                 var reserva = {
                                          IdReserva: uuidv4(),
                                          Usuario: funcionario.Identificacion,
                                          IdParqueo: params.idparqueo,
                                          Placa: placa,
-                                         TipoReserva: "Estandar",
+                                         TipoReserva: "Jefatura",
                                          Dia: nombredia,
                                          Fecha: date,
                                          FechaReserva: fechaReserva,    
                                          HoraEntrada: horaEntrada,
-                                         HoraSalida: finJornada.value
+                                         HoraSalida: horaSalidaParqueo.value
                                  }
                 
                                  axios.post("http://localhost:3001/api/reserva/agregarreserva", reserva)
                                  .then (res => {
                                          console.log(res.data)
                                          Swal.fire('Correcto', 'La reserva ha sido creado')
-                                         const ruta = "/listafuncionario/"
-                                         navegar(ruta.concat(funcionario.Usuario))
+                                         const ruta = "/listadirector/"
+                                         navegar(ruta.concat(params.user))
                                  }).catch(err => {
                                          console.log(err)
                                      })  
@@ -204,7 +199,7 @@ export function Reserva(){
 
         return(
         <div className="App" align="Center">
-                <MenuFuncionario/>
+                <MenuJefatura/>
                 <div className="container">
                 <div className="row">
                         <h2 className="mt-4"> Generar reserva</h2>
@@ -253,10 +248,6 @@ export function Reserva(){
                         <div className="mb-3">
                                 <label htmlFor="horaEntradaFuncionario" className="form-label">Hora de Entrada</label>
                                 <input type="time" className="form-control" id="horaEntradaFuncionario" readOnly></input>
-                        </div>
-                        <div className="mb-3">
-                                <label htmlFor="horaSalidaFuncionario" className="form-label">Hora de Salida</label>
-                                <input type="time" className="form-control" id="horaSalidaFuncionario" readOnly></input>
                         </div>
                         <br />
                         <div className="mb-3">

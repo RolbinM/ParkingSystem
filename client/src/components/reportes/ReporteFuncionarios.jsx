@@ -1,8 +1,8 @@
-import {useEffect, useState} from "react";
+//import {useEffect, useState} from "react";
 import React from 'react';
 import Chart from "./Chart";
 import {MenuAdmin} from "../MenuAdmin"
-import { useNavigate, useParams } from "react-router-dom";
+import {useParams } from "react-router-dom";
 import 'aos/dist/aos.css'
 
 
@@ -10,7 +10,7 @@ export function ReporteFuncionarios () {
     const params = useParams()
 
 
-    const [departamento, setDepartamento]=useState(params.departamento)
+    //const [departamento, setDepartamento]=useState(params.departamento)
 
     return (
         <div className="App" align="Center">
