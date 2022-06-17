@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
@@ -18,9 +18,16 @@ export function AgregarParqueo(){
         const [espaciosOfi, setEspaciosOfi]=useState('')
         const [espaciosReser, setEspaciosReser]=useState('')
         const [espaciosVisit, setEspaciosVisit]=useState('')
-  
 
+        const [operadores, setOperadores]=useState([])
+  
+        useEffect(() => {
+                axios.get('http://localhost:3001/api/operador/obteneroperadores').then((response) => {
+                        setOperadores(response.data)
+                })
+        },[]);
     
+
         const navegar = useNavigate()
 
         function agregarparqueo(){
@@ -75,6 +82,7 @@ export function AgregarParqueo(){
                                 ]
                 }
 
+                console.log(parqueo)
 
                 axios.post("http://localhost:3001/api/parqueo/agregarparqueo", parqueo)
                 .then (res => {
@@ -121,8 +129,16 @@ export function AgregarParqueo(){
 
                         <div className="mb-3">
                                 <label htmlFor="encargado" className="form-label">Encargado</label>
-                                <input type="text" className="form-control" value={encargado} 
-                                        onChange={(e)=> {setEncargado(e.target.value)}}></input>
+
+                                <select className="form-select" name="select" value={encargado} onChange={(e)=> {setEncargado(e.target.value)}}>
+                                <option value="DEFAULT" disabled>Operadores Registrados</option>
+                                {operadores.map((operador) =>{
+                                        return (
+                                                <option key={operador.Identificacion} value={operador.Identificacion}> {operador.Identificacion +" - "+ operador.Nombre} </option>
+                                                
+                                        );        
+                                })}
+                                </select>
                         </div>
 
                         <div className="mb-3">

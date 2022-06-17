@@ -125,6 +125,19 @@ router.post ('/obtenerparqueo', async(req,res)=>{
 })
 
 
+//obtener todos los parqueos por operador
+router.post ('/obtenerparqueooperador', async(req,res)=>{
+    ModeloParqueo.find({Encargado:req.body.operador}, function(docs, err){
+        if(!err){
+            res.send(docs)
+        }else{
+            res.send(err)
+        }
+    })
+})
+
+
+
 //obtener datos de un parqueo
 router.post ('/obtenerdatosparqueo', async(req,res)=>{
     ModeloParqueo.find({Numero:req.body.idNumero}, function(docs, err){

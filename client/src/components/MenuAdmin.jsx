@@ -20,11 +20,19 @@ export function MenuAdmin(){
                         </li>
 
                         <li className="nav-item">
+                            <a className="nav-link"  href="/listaoperadores">Lista de Operadores</a>
+                        </li>
+
+                        <li className="nav-item">
                             <a className="nav-link" href="/agregarfuncionario">Agregar Funcionarios</a>
                         </li>
 
                         <li className="nav-item">
                             <a className="nav-link" href="/agregarparqueo">Agregar Parqueo</a>
+                        </li>
+
+                        <li className="nav-item">
+                            <a className="nav-link" href="/agregaroperador">Agregar Operador</a>
                         </li>
 
                         <li className="nav-item">

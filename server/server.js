@@ -27,6 +27,10 @@ const archivoBD = require('./conexion')
 const rutafuncionario = require('./rutas/usuario')
 app.use('/api/funcionario', rutafuncionario)
 
+//importar rutas y modelos de los operadores
+const rutaoperador = require('./rutas/operadorParqueo')
+app.use('/api/operador', rutaoperador)
+
 //importar rutas y modelos de los administrador
 const rutaadmin = require('./rutas/administrador')
 app.use('/api/administrador', rutaadmin)

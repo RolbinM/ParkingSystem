@@ -15,6 +15,9 @@ import {EditarFuncionario} from "./components/funcionarios/EditarFuncionario"
 import {PlacasFuncionario} from "./components/funcionarios/PlacasFuncionario"
 import {HorarioFuncionario} from "./components/funcionarios/HorarioFuncionario"
 import {EditarHorario} from "./components/funcionarios/EditarHorario"
+import {AgregarOperador} from "./components/funcionarios/AgregarOperador"
+import {ListaOperadores} from "./components/funcionarios/ListaOperadores"
+import {EditarOperador} from "./components/funcionarios/EditarOperador"
 
 import {ListaParqueos} from "./components/parqueos/ListaParqueos";
 import {AgregarParqueo} from "./components/parqueos/AgregarParqueo";
@@ -43,6 +46,11 @@ import { ReservaVisitasJefatura } from './components/portalJefatura/ReservasVisi
 import { HistorialReservasJefatura } from './components/portalJefatura/HistorialReservasJefatura';
 import { HistorialReservasJefaturaVisitas } from './components/portalJefatura/HistorialReservasJefaturaVisitas';
 
+import { PerfilOperador } from './components/portalOperador/PerfilOperador';
+import { ParqueosOperador } from './components/portalOperador/ParqueosOperador';
+import { HorarioParqueoOperador } from './components/portalOperador/HorarioParqueoOperador';
+
+
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
@@ -64,6 +72,9 @@ root.render(
             <Route path='/placasfuncionario/:idfuncionario' element={<PlacasFuncionario/>} exact></Route>
             <Route path='/horariofuncionario/:idfuncionario' element={<HorarioFuncionario/>} exact></Route>
             <Route path='/editarhorariofuncionario/:idfuncionario,:dia' element={<EditarHorario/>} exact></Route>
+            <Route path='/agregaroperador' element={<AgregarOperador/>} exact></Route>
+            <Route path='/listaoperadores' element={<ListaOperadores/> } exact></Route>
+            <Route path='/editaroperador/:idoperador' element={<EditarOperador/> } exact></Route>
 
             <Route path='/listaparqueos' element={<ListaParqueos/> } exact></Route>
             <Route path='/agregarparqueo' element={<AgregarParqueo/>} exact></Route>
@@ -90,6 +101,10 @@ root.render(
             <Route path='/reservarinvitadosjefatura/:user,:idparqueo' element={<ReservaVisitasJefatura/>} exact></Route>
             <Route path='/historialreservasjefatura/:user' element={<HistorialReservasJefatura/>} exact></Route>
             <Route path='/historialreservasinvitadojefatura/:user' element={<HistorialReservasJefaturaVisitas/>} exact></Route>
+
+            <Route path='/perfiloperador/:user'  element={<PerfilOperador/> } exact></Route>
+            <Route path='/parqueosoperador/:user'  element={<ParqueosOperador/> } exact></Route>
+            <Route path='/horarioparqueooperador/:user,:idparqueo'  element={<HorarioParqueoOperador/> } exact></Route>
 
         </Routes>
     </BrowserRouter>

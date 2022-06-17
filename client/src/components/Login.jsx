@@ -44,7 +44,7 @@ export function Login(){
 
                         <div className="form-row">
                             <div className="col-lg 7">
-                                <button onClick={loginParqueo} className="font-weight-bold btn-success  mt-3 mb-5" style={{width: "100%",borderRadius: "50px", border: "1px solid white"}}><h4>Iniciar Sesión Parqueo</h4></button>
+                                <button onClick={loginParqueo} className="font-weight-bold btn-success  mt-3 mb-5" style={{width: "100%",borderRadius: "50px", border: "1px solid white"}}><h4>Iniciar Sesión Operador Parqueo</h4></button>
                             </div>
                         </div>
                        

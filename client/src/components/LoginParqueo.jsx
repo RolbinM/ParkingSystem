@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
-//import './css/estiloLogin.css'
 import fondo from './content/imgLogin.jpg'
 
 export function LoginParqueo(){
@@ -13,14 +12,13 @@ export function LoginParqueo(){
 
         const loginAdministrador = async() =>{         
             try{             
-                const response = await axios.post('http://localhost:3001/api/administrador/login', {usuario: usuario, contra: contra});               
+                const response = await axios.post('http://localhost:3001/api/operador/login', {usuario: usuario, contra: contra});               
 
                 if (response.data[0] != null){
                     
-                    const ruta = "/listafuncionario/"
+                    const ruta = "/perfiloperador/"
                     navegar(ruta.concat(usuario))
                     console.log(usuario)
-                    //navegar('/listafuncionarios',{usuario: usuario})  
                 } else {
                     Swal('Error','Usuario invalido')
                 }
@@ -39,7 +37,7 @@ export function LoginParqueo(){
                     </div>
                     <div className="col-lg-7 px-5 pt-5">
                         <h1 className="font-weight-bold py-3">Control de Parqueos TEC</h1>
-                        <h4>Login Parqueos</h4>
+                        <h4>Login Operador Parqueo</h4>
                      
                         <div className="form-row">
                             <div className="col-lg 7">

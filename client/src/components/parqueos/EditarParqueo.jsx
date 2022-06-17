@@ -20,6 +20,9 @@ export function EditarParqueo(){
     const [espaciosVisit, setEspaciosVisit]=useState('')
     const [horario, sethorario]=useState('')
 
+    const [operadores, setOperadores]=useState([])
+
+
     const navegar = useNavigate()
 
     useEffect(() => {
@@ -39,6 +42,10 @@ export function EditarParqueo(){
             setEspaciosVisit(dataParqueo.EspaciosVisitantes)
             sethorario(dataParqueo.Horario)
         }) 
+
+        axios.get('http://localhost:3001/api/operador/obteneroperadores').then((response) => {
+                setOperadores(response.data)
+        })
     }, [])
     
     //funcion de actualizar
@@ -76,7 +83,7 @@ export function EditarParqueo(){
         <MenuAdmin/>
         <div className="container">
             <div className="row">
-                        <h2 className="mt-4"> Editar usuario</h2>
+                        <h2 className="mt-4"> Editar Parqueo</h2>
             </div>
 
             <div className="row">
@@ -101,8 +108,16 @@ export function EditarParqueo(){
 
                         <div className="mb-3">
                                 <label htmlFor="encargado" className="form-label">Encargado</label>
-                                <input type="text" className="form-control" value={encargado} 
-                                        onChange={(e)=> {setEncargado(e.target.value)}}></input>
+
+                                <select className="form-select" name="select" value={encargado} onChange={(e)=> {setEncargado(e.target.value)}}>
+                                <option value="DEFAULT" disabled>Operadores Registrados</option>
+                                {operadores.map((operador) =>{
+                                        return (
+                                                <option key={operador.Identificacion} value={operador.Identificacion}> {operador.Identificacion +" - "+ operador.Nombre} </option>
+                                                
+                                        );        
+                                })}
+                                </select>
                         </div>
 
                         <div className="mb-3">
