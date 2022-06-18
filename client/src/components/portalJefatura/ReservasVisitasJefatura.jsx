@@ -37,7 +37,7 @@ export function ReservaVisitasJefatura(){
                 axios.post("http://localhost:3001/api/parqueo/obtenerparqueo", {Numero: params.idparqueo})
                 .then(res => {
                         setParqueo(res.data[0])
-                        setEspacios(res.data[0].Espacios)
+                        setEspacios(res.data[0].EspaciosVisitantes)
                 })
             }, [])
 
@@ -62,7 +62,7 @@ export function ReservaVisitasJefatura(){
         }
 
         async function espaciosDisponibles(){
-                await axios.post("http://localhost:3001/api/reserva/obtenerreservasportipo", {TipoReserva: "Estandar", FechaReserva: fechaReserva})
+                await axios.post("http://localhost:3001/api/reservaInvitado/obtenerreservasinvitadoporparqueo", {IdParqueo: parqueo.Numero, FechaReserva: fechaReserva})
                 .then(res => {
                         var cierre = document.getElementById("horaCierre")
                         var hEntrada = horaEntrada
@@ -84,7 +84,7 @@ export function ReservaVisitasJefatura(){
                                         }
                                 }
 
-                                if(listaReservas[reserva].IdUsuario == funcionario.Identificacion){
+                                if(listaReservas[reserva].PlacaV == placaVisita){
                                         contador2 = contador2 + 1
                                 }
                         }
@@ -97,31 +97,16 @@ export function ReservaVisitasJefatura(){
         
         function parqueoAbierto(){
                 const dias = parqueo.Horario
-                const diasFuncionario = funcionario.Horario
-
                 var nombresdias = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-                var dia = new Date(fechaReserva);
-                var nombredia = nombresdias[dia.getDay()];
-
+                var dia2 = new Date(fechaReserva);
+                var nombredia = nombresdias[dia2.getDay()];
                 for (var dia of dias){
                         if (dia.day === nombredia){
                                 var cierre = document.getElementById("horaCierre")
-                                cierre.value = dia.end_time
-
-                        }
-                }
-                for (var diaF of diasFuncionario){
-                        if (diaF.day === nombredia){
-                                var finJornada = document.getElementById("finJornada")
-                                finJornada.value = diaF.end_time
-                                if(diaF.end_time <= dia.end_time && horaEntrada >= dia.start_time ){
-                                        if(horaEntrada >= diaF.start_time && horaEntrada < diaF.end_time){
-                                                return true;      
-                                        }
-                                        else{
-                                                return false;
-
-                                        }
+                                cierre.value = dia.end_time 
+                                
+                                if(horaSalida <= dia.end_time && horaEntrada >= dia.start_time ){
+                                        return true;
                                 }
                                 else{
                                         return false;
@@ -129,18 +114,14 @@ export function ReservaVisitasJefatura(){
 
                         }
                 }
+               
 
         }
         async function agregarReserva(){
                 if(parqueoAbierto()){
                         espaciosDisponibles()
                         if(espaciosOcupados < cantidadEspacios && cantidadReservasUsuario < 1){
-                                var cierre = document.getElementById("horaCierre")
-                                console.log(cierre.value)
-                
-                                var finJornada = document.getElementById("finJornada")
-                                console.log(finJornada.value)
-                                
+
                                 const current = new Date();
                                 const date = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
                                 
@@ -166,7 +147,7 @@ export function ReservaVisitasJefatura(){
                                          HoraSalida: horaSalida
                                  }
                 
-                                 axios.post("http://localhost:3001/api/reserva/agregarreserva", reserva)
+                                 axios.post("http://localhost:3001/api/reserva/agregarreservainvitado", reserva)
                                  .then (res => {
                                          console.log(res.data)
                                          Swal.fire('Correcto', 'La reserva ha sido creado')

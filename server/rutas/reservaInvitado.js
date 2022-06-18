@@ -98,7 +98,7 @@ router.post ('/agregarreservainvitado', async(req,res)=>{
 
 //obtener data funcionario
 router.post ('/obtenerreservasinvitado', async(req,res)=>{
-    ModeloReservaInvitado.find({}, function(docs, err){
+    ModeloReservaInvitado.find({IdParqueo: req.body.IdParqueo}, function(docs, err){
         if(!err){
             res.send(docs)
         }else{
@@ -121,8 +121,19 @@ router.post ('/obtenerreservasinvitadoId', async(req,res)=>{
 
 
 //obtener data reserva por tipo 
-router.post ('/obtenerreservasinvitadoportipo', async(req,res)=>{
-    ModeloReserva.find({TipoReserva:req.body.TipoReserva,FechaReserva:req.body.FechaReserva}, function(docs, err){
+router.post ('/obtenerreservasinvitadoporparqueo', async(req,res)=>{
+    ModeloReserva.find({IdParqueo:req.body.TipoReserva,FechaReserva:req.body.FechaReserva}, function(docs, err){
+        if(!err){
+            res.send(docs)
+        }else{
+            res.send(err)
+        }
+    })
+})
+
+//obtener data reservas oficiales
+router.post ('/obtenerreservasinvitadosvigentes', async(req,res)=>{
+    ModeloReservaOficial.find({FechaReserva: req.body.FechaReserva, IdParqueo: req.body.IdParqueo}, function(docs, err){
         if(!err){
             res.send(docs)
         }else{
