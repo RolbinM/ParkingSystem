@@ -49,6 +49,8 @@ import { HistorialReservasJefaturaVisitas } from './components/portalJefatura/Hi
 import { PerfilOperador } from './components/portalOperador/PerfilOperador';
 import { ParqueosOperador } from './components/portalOperador/ParqueosOperador';
 import { HorarioParqueoOperador } from './components/portalOperador/HorarioParqueoOperador';
+import { ReservasOficiales } from './components/portalOperador/ReservasOficiales';
+import { AgregarReservaOficial } from './components/portalOperador/AgregarReservaOficial';
 
 
 
@@ -105,6 +107,8 @@ root.render(
             <Route path='/perfiloperador/:user'  element={<PerfilOperador/> } exact></Route>
             <Route path='/parqueosoperador/:user'  element={<ParqueosOperador/> } exact></Route>
             <Route path='/horarioparqueooperador/:user,:idparqueo'  element={<HorarioParqueoOperador/> } exact></Route>
+            <Route path='/reservasoficiales/:user,:idparqueo'  element={<ReservasOficiales/> } exact></Route>
+            <Route path='/agregarreservaoficial/:user,:idparqueo'  element={<AgregarReservaOficial/> } exact></Route>
 
         </Routes>
     </BrowserRouter>
