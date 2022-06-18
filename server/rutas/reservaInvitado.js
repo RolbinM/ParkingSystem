@@ -122,7 +122,7 @@ router.post ('/obtenerreservasinvitadoId', async(req,res)=>{
 
 //obtener data reserva por tipo 
 router.post ('/obtenerreservasinvitadoporparqueo', async(req,res)=>{
-    ModeloReserva.find({IdParqueo:req.body.TipoReserva,FechaReserva:req.body.FechaReserva}, function(docs, err){
+    ModeloReservaInvitado.find({IdParqueo:req.body.TipoReserva,FechaReserva:req.body.FechaReserva}, function(docs, err){
         if(!err){
             res.send(docs)
         }else{
@@ -133,11 +133,27 @@ router.post ('/obtenerreservasinvitadoporparqueo', async(req,res)=>{
 
 //obtener data reservas oficiales
 router.post ('/obtenerreservasinvitadosvigentes', async(req,res)=>{
-    ModeloReservaOficial.find({FechaReserva: req.body.FechaReserva, IdParqueo: req.body.IdParqueo}, function(docs, err){
+    ModeloReservaInvitado.find({FechaReserva: req.body.FechaReserva, IdParqueo: req.body.IdParqueo}, function(docs, err){
         if(!err){
             res.send(docs)
         }else{
             res.send(err)
         }
     })
+})
+
+
+//Actualizar parqueo
+router.post ('/expirarreserva', async(req,res)=>{
+    ModeloReservaInvitado.findOneAndUpdate({IdReserva:req.body.IdNumero},{
+        HoraSalida: req.body.HoraSalida,
+        FechaReserva: req.body.FechaReserva
+    }, (err) => {
+        if(!err){
+            res.send("Reserva actualizada correctamente")
+        }else{
+            res.send(err)
+        }
+    })
+    console.log(req);
 })

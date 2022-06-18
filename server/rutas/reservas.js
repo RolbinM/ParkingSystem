@@ -93,7 +93,7 @@ router.post ('/obtenerreservasfuncionario', async(req,res)=>{
 
 //obtener data funcionario
 router.post ('/obtenerreservasportipo', async(req,res)=>{
-    ModeloReserva.find({TipoReserva:req.body.TipoReserva,FechaReserva:req.body.FechaReserva}, function(docs, err){
+    ModeloReserva.find({TipoReserva:req.body.TipoReserva,FechaReserva:req.body.FechaReserva, IdParqueo: req.body.IdParqueo}, function(docs, err){
         if(!err){
             res.send(docs)
         }else{

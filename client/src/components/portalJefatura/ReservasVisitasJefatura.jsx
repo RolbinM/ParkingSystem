@@ -147,7 +147,7 @@ export function ReservaVisitasJefatura(){
                                          HoraSalida: horaSalida
                                  }
                 
-                                 axios.post("http://localhost:3001/api/reserva/agregarreservainvitado", reserva)
+                                 axios.post("http://localhost:3001/api/reservaInvitado/agregarreservainvitado", reserva)
                                  .then (res => {
                                          console.log(res.data)
                                          Swal.fire('Correcto', 'La reserva ha sido creado')

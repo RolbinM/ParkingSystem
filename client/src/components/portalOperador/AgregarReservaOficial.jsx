@@ -9,16 +9,14 @@ const { v4: uuidv4 } = require('uuid');
 
 export function AgregarReservaOficial(){
         const params = useParams()
-        //hooks
+
         const [parqueo, setParqueo]=useState(null)
-        const [operador, setOperador]=useState(null)
 
         const [placa, setPlaca]=useState('')
         const [color, setColor]=useState('')
         const [modelo, setModelo]=useState('')
         const [chofer, setChofer]=useState('')
 
-        const [fechaReserva, setFechaReserva]=useState(new Date().toISOString())
         const [horaEntrada, setHoraEntrada]=useState('')
 
         const [cantidadEspacios, setEspacios]=useState(null)
@@ -34,24 +32,15 @@ export function AgregarReservaOficial(){
                 .then(res => {
                         setParqueo(res.data[0])
                         setEspacios(res.data[0].EspaciosOficiales)
-
-                        const date = new Date()
-                        cambiarDatosParqueo(date.toString())
-
-                        axios.post("http://localhost:3001/api/operador/obtenerdataoperador2", {user: params.user})
-                        .then(resOpe => {
-                                setOperador(resOpe.data[0])
-                        })
                 })
 
             }, [])
 
-        
-        function cambiarDatosParqueo(fecha){
+        function cambiarDatosParqueo(){
                 const dias = parqueo.Horario
 
-                var nombresdias = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-                var dia = new Date(fecha);
+                var nombresdias = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+                var dia = new Date();
                 var nombredia = nombresdias[dia.getDay()];
 
                 for (var dia of dias){
@@ -66,12 +55,15 @@ export function AgregarReservaOficial(){
         }
 
         async function espaciosDisponibles(){
-                await axios.post("http://localhost:3001/api/reservasoficiales/obtenerreservas", {FechaReserva: fechaReserva})
+                var dia = new Date();
+                var date = `${dia.getFullYear()}-${dia.getMonth()+1}-${dia.getDate()}`;
+                await axios.post("http://localhost:3001/api/reservaoficial/obtenerreservasoficialesvigentes", {IdParqueo: params.idparqueo, FechaReserva: date})
                 .then(res => {
+
                         var cierre = document.getElementById("horaCierre")
                         var hEntrada = horaEntrada
                         var hSalida = cierre.value
-
+                        console.log(hEntrada + "   " + hSalida)
                         const listaReservas = res.data;
                         var contador = 0;
                         var contador2 = 0;
@@ -102,15 +94,14 @@ export function AgregarReservaOficial(){
         function parqueoAbierto(){
                 const dias = parqueo.Horario
 
-                var nombresdias = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-                var dia = new Date(fechaReserva);
+                var nombresdias = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+                var dia = new Date();
                 var nombredia = nombresdias[dia.getDay()];
 
                 for (var dia of dias){
                         if (dia.day === nombredia){
                                 var cierre = document.getElementById("horaCierre")
                                 cierre.value = dia.end_time 
-
 
                                 if(horaEntrada < dia.end_time  && horaEntrada > dia.start_time){
                                         return true;
@@ -130,8 +121,9 @@ export function AgregarReservaOficial(){
                         if(espaciosOcupados < cantidadEspacios && cantidadReservasUsuario < 1){
                                 var cierre = document.getElementById("horaCierre")
                                 
-                                var nombresdias = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-                                var dia = new Date(fechaReserva);
+                                var nombresdias = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+                                var dia = new Date();
+                                var date = `${dia.getFullYear()}-${dia.getMonth()+1}-${dia.getDate()}`;
                                 var nombredia = nombresdias[dia.getDay()];
 
                                 var reserva = {
@@ -143,20 +135,20 @@ export function AgregarReservaOficial(){
                                          Color: color,
                                          Chofer: chofer,
                                          Dia: nombredia,
-                                         FechaReserva: fechaReserva,    
+                                         FechaReserva: date,    
                                          HoraEntrada: horaEntrada,
                                          HoraSalida: cierre.value
                                  }
-                
+
                                  axios.post("http://localhost:3001/api/reservaoficial/agregarreservaoficial", reserva)
                                  .then (res => {
                                          Swal.fire('Correcto', 'La reserva ha sido creado')
                                          const ruta = "/parqueosoperador/"
-                                         ruta = ruta.concat(params.user)
-                                         navegar(ruta)
+                                         navegar(ruta.concat(params.user))
+
                                  }).catch(err => {
                                          console.log(err)
-                                     })  
+                                })  
                         }
                         else {
                                 Swal.fire('Incorrecto', 'No hay espacios disponibles para la reserva')
@@ -226,6 +218,8 @@ export function AgregarReservaOficial(){
                         <br /><br />
                         <div className="mb-3">
                                 <h4>Horario del Parqueo para el día seleccionado</h4>
+                                <br />
+                                <button onClick={()=> {cambiarDatosParqueo()}} className="btn btn-success">Cargar Horario</button>    
                         </div>
                         <div className="mb-3">
                                 <label htmlFor="horaEntradaParqueo" className="form-label">Hora de Entrada</label>
@@ -241,8 +235,7 @@ export function AgregarReservaOficial(){
                         ) : (
                                 <button onClick={()=> {changeState();agregarReserva()}} className="btn btn-success">Reservar</button>
                         )}
-                                        
-                        {/* <button onClick={()=> {espaciosDisponibles(); agregarReserva()}} className="btn btn-success">Reservar</button> */}
+
                         </div>
                 </div>
                 </div>

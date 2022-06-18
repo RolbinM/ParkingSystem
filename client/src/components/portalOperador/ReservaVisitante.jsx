@@ -4,7 +4,7 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 
 
-export function ReservaOficial({reserva}){
+export function ReservaVisitante({reserva}){
     const params = useParams()
 
     //Para animacion
@@ -18,31 +18,28 @@ export function ReservaOficial({reserva}){
                 <div className="col-sm-10 offset-1" data-aos="zoom-in">
                     <ul className="list-group">
                         <li className="list-group-item">
-                            Operador: {reserva.IdOperador}
+                            IdReserva: {reserva.IdReserva}
                         </li>
                         <li className="list-group-item">
-                            Parqueo: {reserva.IdParqueo}
+                            IdParqueo: {reserva.IdParqueo}
                         </li>
                         <li className="list-group-item">
                             Placa: {reserva.Placa}
                         </li>
                         <li className="list-group-item">
-                            Modelo: {reserva.Modelo}
+                            Dia: {reserva.Dia}
                         </li>
                         <li className="list-group-item">
-                            Color: {reserva.Color}
+                            Fecha: {reserva.Fecha}
                         </li>
                         <li className="list-group-item">
-                            Chofer: {reserva.Chofer}
+                            FechaReserva: {reserva.FechaReserva}
                         </li>
                         <li className="list-group-item">
-                            Fecha de Uso: {reserva.FechaReserva}
+                            HoraEntrada: {reserva.HoraEntrada}
                         </li>
                         <li className="list-group-item">
-                            Hora de Entrada: {reserva.HoraEntrada}
-                        </li>
-                        <li className="list-group-item">
-                            Hora de Salida: {reserva.HoraSalida}
+                            HoraSalida: {reserva.HoraSalida}
                         </li>
                     </ul>
                     <br />

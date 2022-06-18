@@ -51,6 +51,9 @@ import { ParqueosOperador } from './components/portalOperador/ParqueosOperador';
 import { HorarioParqueoOperador } from './components/portalOperador/HorarioParqueoOperador';
 import { ReservasOficiales } from './components/portalOperador/ReservasOficiales';
 import { AgregarReservaOficial } from './components/portalOperador/AgregarReservaOficial';
+import { ReservasOficialesVigentes } from './components/portalOperador/ReservasOficialesVigentes';
+import { ReservasVisitantesVigentes } from './components/portalOperador/ReservasVisitantesVigentes';
+import { ReservasVisitantes } from './components/portalOperador/ReservasVisitantes';
 
 
 
@@ -109,6 +112,9 @@ root.render(
             <Route path='/horarioparqueooperador/:user,:idparqueo'  element={<HorarioParqueoOperador/> } exact></Route>
             <Route path='/reservasoficiales/:user,:idparqueo'  element={<ReservasOficiales/> } exact></Route>
             <Route path='/agregarreservaoficial/:user,:idparqueo'  element={<AgregarReservaOficial/> } exact></Route>
+            <Route path='/reservasoficialesvigentes/:user,:idparqueo'  element={<ReservasOficialesVigentes/> } exact></Route>
+            <Route path='/reservasvisitantes/:user,:idparqueo'  element={<ReservasVisitantes/> } exact></Route>
+            <Route path='/reservasvisitantesvigentes/:user,:idparqueo'  element={<ReservasVisitantesVigentes/> } exact></Route>
 
         </Routes>
     </BrowserRouter>

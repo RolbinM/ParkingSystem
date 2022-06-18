@@ -78,7 +78,7 @@ export function Reserva(){
         }
 
         async function espaciosDisponibles(){
-                await axios.post("http://localhost:3001/api/reserva/obtenerreservasportipo", {TipoReserva: "Estandar", FechaReserva: fechaReserva})
+                await axios.post("http://localhost:3001/api/reserva/obtenerreservasportipo", {TipoReserva: "Estandar", FechaReserva: fechaReserva, IdParqueo: params.idparqueo})
                 .then(res => {
                         var cierre = document.getElementById("horaCierre")
                         var hEntrada = horaEntrada

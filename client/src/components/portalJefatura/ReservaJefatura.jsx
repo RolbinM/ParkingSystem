@@ -76,7 +76,7 @@ export function ReservaJefatura(){
         }
 
         async function espaciosDisponibles(){
-                await axios.post("http://localhost:3001/api/reserva/obtenerreservasportipo", {TipoReserva: "Jefatura", FechaReserva: fechaReserva})
+                await axios.post("http://localhost:3001/api/reserva/obtenerreservasportipo", {TipoReserva: "Jefatura", FechaReserva: fechaReserva, IdParqueo: params.idparqueo})
                 .then(res => {
                         var cierre = document.getElementById("horaCierre")
                         var hEntrada = horaEntrada
@@ -157,7 +157,6 @@ export function ReservaJefatura(){
                                 var nombredia = nombresdias[dia.getDay()];
 
                                 var horaSalidaParqueo = document.getElementById("horaSalidaParqueo")
-                                horaSalidaParqueo.value = dia.end_time
                                 
                                 var reserva = {
                                          IdReserva: uuidv4(),

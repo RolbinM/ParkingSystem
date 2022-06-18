@@ -9,11 +9,11 @@ const ReservaOficialSchema = new Schema({
         required: true
     },
     IdOperador:{
-        type: Number,
+        type: String,
         required: true
     },
     IdParqueo:{
-        type: Number,
+        type: String,
         required: true
     },
     Placa:{
@@ -100,4 +100,19 @@ router.post ('/obtenerreservasoficialesvigentes', async(req,res)=>{
             res.send(err)
         }
     })
+})
+
+
+//Actualizar parqueo
+router.post ('/expirarreserva', async(req,res)=>{
+    ModeloReservaOficial.findOneAndUpdate({IdReserva:req.body.IdNumero},{
+        HoraSalida: req.body.HoraSalida
+    }, (err) => {
+        if(!err){
+            res.send("Reserva actualizada correctamente")
+        }else{
+            res.send(err)
+        }
+    })
+    console.log(req);
 })

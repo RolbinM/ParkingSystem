@@ -1,18 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {ReservaOficial} from "./ReservaOficial"
+import {ReservaVisitante} from "./ReservaVisitante"
 import {MenuOperador} from "../MenuOperador"
 import {useParams, Link } from "react-router-dom";
 
 
-export function ReservasOficiales(){
+export function ReservasVisitantes(){
 
     const[dataReservas, setDataReservas]=useState([])
     
     const params = useParams()
 
     useEffect(() => {
-        axios.post("http://localhost:3001/api/reservaoficial/obtenerreservasoficiales",
+        axios.post("http://localhost:3001/api/reservaInvitado/obtenerreservasinvitado",
         {IdParqueo: params.idparqueo}).then(res =>{
             setDataReservas(res.data)
         }).catch(err => {
@@ -25,7 +25,7 @@ export function ReservasOficiales(){
     const reservas = dataReservas.map(reserva => {
         return (
             <div>
-                <ReservaOficial reserva={reserva}/>
+                <ReservaVisitante reserva={reserva}/>
             </div>
         )
     })
@@ -43,11 +43,7 @@ export function ReservasOficiales(){
                        
                     </div> 
                     <div className="col-sm">
-                        <Link to={`/agregarreservaoficial/${params.user},${params.idparqueo}`}><li className="btn btn-outline-success">Agregar Reserva</li></Link>
-                        &nbsp;
-                    </div> 
-                    <div className="col-sm">
-                        <Link to={`/reservasoficialesvigentes/${params.user},${params.idparqueo}`}><li className="btn btn-outline-dark">Reservas Vigentes</li></Link>
+                        <Link to={`/reservasvisitantesvigentes/${params.user},${params.idparqueo}`}><li className="btn btn-outline-dark">Reservas Vigentes</li></Link>
                         &nbsp;
                     </div>
                     <div className="col-4">
