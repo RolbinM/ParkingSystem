@@ -101,3 +101,15 @@ router.post ('/obtenerreservasportipo', async(req,res)=>{
         }
     })
 })
+
+//obtener data funcionario
+router.post ('/obtenerreservasparametrizadas', async(req,res)=>{
+    ModeloReserva.find({IdUsuario:req.body.Identificacion, IdParqueo: req.body.IdParqueo}, 
+        function(docs, err){
+        if(!err){
+            res.send(docs)
+        }else{
+            res.send(err)
+        }
+    })
+})

@@ -119,6 +119,19 @@ router.post ('/obtenerreservasinvitadoId', async(req,res)=>{
 })
 
 
+//obtener data funcionario
+router.post ('/obtenerreservasinvitadoAdmin', async(req,res)=>{
+    ModeloReservaInvitado.find({}, function(docs, err){
+        if(!err){
+            res.send(docs)
+        }else{
+            res.send(err)
+        }
+    })
+})
+
+
+
 
 //obtener data reserva por tipo 
 router.post ('/obtenerreservasinvitadoporparqueo', async(req,res)=>{

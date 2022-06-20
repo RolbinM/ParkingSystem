@@ -69,6 +69,8 @@ export function ParqueoEspecifico({parqueo}){
                         </li>
                     </ul>
                     <br />
+                    <Link to={`/reservarinvitados/${parqueo.Numero}`}><li className="btn btn-outline-dark">Reserva de Invitados</li></Link>
+                    &nbsp;
                     <Link to={`/horarioparqueo/${parqueo.Numero}`}><li className="btn btn-outline-dark">Horario</li></Link>
                     &nbsp;
                     <Link to={`/editarparqueo/${parqueo.Numero}`}><li className="btn btn-outline-warning">Editar</li></Link>

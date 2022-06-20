@@ -54,6 +54,12 @@ import { AgregarReservaOficial } from './components/portalOperador/AgregarReserv
 import { ReservasOficialesVigentes } from './components/portalOperador/ReservasOficialesVigentes';
 import { ReservasVisitantesVigentes } from './components/portalOperador/ReservasVisitantesVigentes';
 import { ReservasVisitantes } from './components/portalOperador/ReservasVisitantes';
+import { ReservasParametrizadas } from './components/portalFuncionario/ReservasParametrizadas';
+import { HistorialReservasParametrizadas } from './components/portalFuncionario/HistorialReservasParametrizadas';
+import { HistorialReservasParametrizadasJefatura } from './components/portalJefatura/HistorialReservasParametrizadasJefatura';
+import { ReservasParametrizadasJefatura } from './components/portalJefatura/ReservasParametrizadasJefatura';
+import {HistorialReservasVisitas} from "./components/funcionarios/HistorialReservasVisitas";
+import {ReservaVisitas} from "./components/funcionarios/ReservasVisitas";
 
 
 
@@ -69,6 +75,7 @@ root.render(
             <Route path='/loginAdministrador/' element={<LoginAdministrador/>} exact></Route>
             <Route path='/loginParqueo/' element={<LoginParqueo/>} exact></Route>
             <Route path='/loginFuncionario/' element={<LoginFuncionario/>} exact></Route>
+            <Route path='/historialreservasinvitado/' element={<HistorialReservasVisitas/>} exact></Route>
 
             <Route path='/listafuncionarios' element={<ListaFuncionarios/> } exact></Route>
             <Route path='/listafuncionario/:user' element={<ListaFuncionario/> } exact></Route>
@@ -80,6 +87,8 @@ root.render(
             <Route path='/agregaroperador' element={<AgregarOperador/>} exact></Route>
             <Route path='/listaoperadores' element={<ListaOperadores/> } exact></Route>
             <Route path='/editaroperador/:idoperador' element={<EditarOperador/> } exact></Route>
+            <Route path='/reservarinvitados/:idparqueo' element={<ReservaVisitas/> } exact></Route>
+
 
             <Route path='/listaparqueos' element={<ListaParqueos/> } exact></Route>
             <Route path='/agregarparqueo' element={<AgregarParqueo/>} exact></Route>
@@ -97,6 +106,8 @@ root.render(
             <Route path='/reservahistorial/:user' element={<HistorialReservas/>} exact></Route>
             <Route path='/placasfuncionarioespecifico/:idfuncionario,:user' element={<Placas/>} exact></Route>
             <Route path='/horariofuncionarioespecifico/:idfuncionario,:user' element={<Horario/>} exact></Route>
+            <Route path='/historialparametrizado/:user' element={<ReservasParametrizadas/>} exact></Route>
+            <Route path='/consultahistorialparametrizado/:user,:idfuncionario,:idparqueo,:fechaEntrada,:fechaSalida' element={<HistorialReservasParametrizadas/>} exact></Route>
 
             <Route path='/listadirector/:user'  element={<ListaDirector/> } exact></Route>
             <Route path='/placasdirectorespecifico/:idfuncionario,:user' element={<PlacasJefatura/>} exact></Route>
@@ -106,6 +117,8 @@ root.render(
             <Route path='/reservarinvitadosjefatura/:user,:idparqueo' element={<ReservaVisitasJefatura/>} exact></Route>
             <Route path='/historialreservasjefatura/:user' element={<HistorialReservasJefatura/>} exact></Route>
             <Route path='/historialreservasinvitadojefatura/:user' element={<HistorialReservasJefaturaVisitas/>} exact></Route>
+            <Route path='/historialparametrizadojefatura/:user' element={<ReservasParametrizadasJefatura/>} exact></Route>
+            <Route path='/consultahistorialparametrizadojefatura/:user,:idfuncionario,:idparqueo,:fechaEntrada,:fechaSalida' element={<HistorialReservasParametrizadasJefatura/>} exact></Route>
 
             <Route path='/perfiloperador/:user'  element={<PerfilOperador/> } exact></Route>
             <Route path='/parqueosoperador/:user'  element={<ParqueosOperador/> } exact></Route>

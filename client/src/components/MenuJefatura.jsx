@@ -21,7 +21,7 @@ export function MenuJefatura(){
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link" href="">Reservaciones</a>
+                        <a className="nav-link" href={`/historialparametrizadojefatura/${params.user}`}>Reservaciones</a>
                         </li>
 
                         <li className="nav-item">

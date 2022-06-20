@@ -35,6 +35,10 @@ export function MenuAdmin(){
                             <a className="nav-link" href="/agregaroperador">Agregar Operador</a>
                         </li>
 
+                        <li className="nav-item">
+                            <a className="nav-link" href="/historialreservasinvitado">Historial Visitas</a>
+                        </li>
+
                         <div class="dropdown">
                             <button class="dropbtn">Reportes</button>
                             <div class="dropdown-content">
@@ -44,8 +48,6 @@ export function MenuAdmin(){
                                 <a href="/reporteconsultafuncionario/1">Consulta Funcionario</a>
                             </div>
                         </div>
-
-
 
                         <li className="nav-item">
                             <a className="nav-link" href="/">Cerrar Sesion</a>
