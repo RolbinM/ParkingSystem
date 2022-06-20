@@ -1,5 +1,5 @@
 import React from "react";
-
+import './css/styleMenuAdmin.css'
 export function MenuAdmin(){
    
     return (
@@ -35,22 +35,18 @@ export function MenuAdmin(){
                             <a className="nav-link" href="/agregaroperador">Agregar Operador</a>
                         </li>
 
-                        <li className="nav-item">
-                            <a className="nav-link" href="/reportefuncionarios">Reporte Funcionarios</a>
-                        </li>
+                        <div class="dropdown">
+                            <button class="dropbtn">Reportes</button>
+                            <div class="dropdown-content">
+                                <a href="/reportefuncionarios">Reporte Funcionarios</a>
+                                <a href="/reporteparqueos">Reporte Parqueos</a>
+                                <a href="/reportehorarios">Reporte Horarios</a>
+                                <a href="/reporteconsultafuncionario/1">Consulta Funcionario</a>
+                            </div>
+                        </div>
 
-                        <li className="nav-item">
-                            <a className="nav-link" href="/reporteparqueos">Reporte Parqueos</a>
-                        </li>
 
-                        <li className="nav-item">
-                            <a className="nav-link" href="/reportehorarios">Reporte Horarios</a>
-                        </li>
 
-                        <li className="nav-item">
-                            <a className="nav-link" href="/reporteconsultafuncionario/1">Consulta Funcionario</a>
-                        </li>
-                        
                         <li className="nav-item">
                             <a className="nav-link" href="/">Cerrar Sesion</a>
                         </li>
@@ -60,7 +56,7 @@ export function MenuAdmin(){
             </nav>
 
 
-
+           
     );
    
 }
