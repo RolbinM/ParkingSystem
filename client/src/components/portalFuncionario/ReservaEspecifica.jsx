@@ -22,6 +22,9 @@ export function ReservaEspecifica({reserva}){
                             IdParqueo: {reserva.IdParqueo}
                         </li>
                         <li className="list-group-item">
+                            TipoReserva: {reserva.TipoReserva}
+                        </li>
+                        <li className="list-group-item">
                             Placa: {reserva.Placa}
                         </li>
                         <li className="list-group-item">
