@@ -28,14 +28,28 @@ export function Reserva(){
                 axios.post('http://localhost:3001/api/funcionario/obtenerdatafuncionario2', 
                 {user: params.user}).then(res => {
                         setPlacas(res.data[0].Placas)
-                        setFuncionario(res.data[0])
-                        
+                        setFuncionario(res.data[0]) 
+
+                        if (res.data[0].Discapacitado == "Si"){
+                                console.log("Es discapacitado")
+
+                                axios.post("http://localhost:3001/api/parqueo/obtenerparqueo", {Numero: params.idparqueo})
+                                .then(resParqueo => {
+                                        setParqueo(resParqueo.data[0])
+                                        setEspacios(resParqueo.data[0].EspaciosDiscapacitados)
+                                })
+
+                        } else {
+                                console.log("No es discapacitado")
+
+                                axios.post("http://localhost:3001/api/parqueo/obtenerparqueo", {Numero: params.idparqueo})
+                                .then(resParqueo => {
+                                        setParqueo(resParqueo.data[0])
+                                        setEspacios(resParqueo.data[0].Espacios)
+                                })
+                        }
                 })
-                axios.post("http://localhost:3001/api/parqueo/obtenerparqueo", {Numero: params.idparqueo})
-                .then(res => {
-                        setParqueo(res.data[0])
-                        setEspacios(res.data[0].Espacios)
-                })
+                
             }, [])
 
         
@@ -78,7 +92,12 @@ export function Reserva(){
         }
 
         async function espaciosDisponibles(){
-                await axios.post("http://localhost:3001/api/reserva/obtenerreservasportipo", {TipoReserva: "Estandar", FechaReserva: fechaReserva, IdParqueo: params.idparqueo})
+                var tipoReserva = "Estandar"
+                if(funcionario.Discapacitado == "Si"){
+                        tipoReserva = "Discapacitado"
+                }
+
+                await axios.post("http://localhost:3001/api/reserva/obtenerreservasportipo", {TipoReserva: tipoReserva, FechaReserva: fechaReserva, IdParqueo: params.idparqueo})
                 .then(res => {
                         var cierre = document.getElementById("horaCierre")
                         var hEntrada = horaEntrada
@@ -150,6 +169,7 @@ export function Reserva(){
         async function agregarReserva(){
                 if(parqueoAbierto()){
                         espaciosDisponibles()
+
                         if(espaciosOcupados < cantidadEspacios && cantidadReservasUsuario < 1){
                                 var cierre = document.getElementById("horaCierre")
                                 console.log(cierre.value)
@@ -163,13 +183,18 @@ export function Reserva(){
                                 var nombresdias = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
                                 var dia = new Date(fechaReserva);
                                 var nombredia = nombresdias[dia.getDay()];
+                                
+                                var tipoReserva = "Estandar"
+                                if(funcionario.Discapacitado == "Si"){
+                                        tipoReserva = "Discapacitado"
+                                }
 
                                 var reserva = {
                                          IdReserva: uuidv4(),
                                          Usuario: funcionario.Identificacion,
                                          IdParqueo: params.idparqueo,
                                          Placa: placa,
-                                         TipoReserva: "Estandar",
+                                         TipoReserva: tipoReserva,
                                          Dia: nombredia,
                                          Fecha: date,
                                          FechaReserva: fechaReserva,    

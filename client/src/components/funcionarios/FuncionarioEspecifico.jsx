@@ -55,6 +55,9 @@ export function FuncionarioEspecifico({funcionario}){
                             Sede: {funcionario.Sede}
                         </li>
                         <li className="list-group-item">
+                            Discapacitado: {funcionario.Discapacitado}
+                        </li>
+                        <li className="list-group-item">
                             Usuario: {funcionario.Usuario}
                         </li>
                     </ul>

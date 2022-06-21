@@ -29,13 +29,32 @@ export function ReservaJefatura(){
                 {user: params.user}).then(res => {
                         setPlacas(res.data[0].Placas)
                         setFuncionario(res.data[0])
+
+
+                        if (res.data[0].Discapacitado == "Si"){
+                                console.log("Es discapacitado")
+
+                                axios.post("http://localhost:3001/api/parqueo/obtenerparqueo", {Numero: params.idparqueo})
+                                .then(resParqueo => {
+                                        setParqueo(resParqueo.data[0])
+                                        setEspacios(resParqueo.data[0].EspaciosDiscapacitados)
+                                })
+
+                        } else {
+                                console.log("No es discapacitado")
+
+                                axios.post("http://localhost:3001/api/parqueo/obtenerparqueo", {Numero: params.idparqueo})
+                                .then(res => {
+                                        setParqueo(res.data[0])
+                                        setEspacios(res.data[0].Espacios)
+                                })
+                        }
                         
                 })
-                axios.post("http://localhost:3001/api/parqueo/obtenerparqueo", {Numero: params.idparqueo})
-                .then(res => {
-                        setParqueo(res.data[0])
-                        setEspacios(res.data[0].Espacios)
-                })
+
+
+
+                
             }, [])
 
         
@@ -76,7 +95,12 @@ export function ReservaJefatura(){
         }
 
         async function espaciosDisponibles(){
-                await axios.post("http://localhost:3001/api/reserva/obtenerreservasportipo", {TipoReserva: "Jefatura", FechaReserva: fechaReserva, IdParqueo: params.idparqueo})
+                var tipoReserva = "Jefatura"
+                if(funcionario.Discapacitado == "Si"){
+                        tipoReserva = "Discapacitado"
+                }
+
+                await axios.post("http://localhost:3001/api/reserva/obtenerreservasportipo", {TipoReserva: tipoReserva, FechaReserva: fechaReserva, IdParqueo: params.idparqueo})
                 .then(res => {
                         var cierre = document.getElementById("horaCierre")
                         var hEntrada = horaEntrada
@@ -157,13 +181,18 @@ export function ReservaJefatura(){
                                 var nombredia = nombresdias[dia.getDay()];
 
                                 var horaSalidaParqueo = document.getElementById("horaSalidaParqueo")
+
+                                var tipoReserva = "Jefatura"
+                                if(funcionario.Discapacitado == "Si"){
+                                        tipoReserva = "Discapacitado"
+                                }
                                 
                                 var reserva = {
                                          IdReserva: uuidv4(),
                                          Usuario: funcionario.Identificacion,
                                          IdParqueo: params.idparqueo,
                                          Placa: placa,
-                                         TipoReserva: "Jefatura",
+                                         TipoReserva: tipoReserva,
                                          Dia: nombredia,
                                          Fecha: date,
                                          FechaReserva: fechaReserva,    

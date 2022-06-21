@@ -42,6 +42,10 @@ const schemaFuncionario = Schema ({
         type:String,
         requiered:false,
     },
+    Discapacitado:{
+        type:String,
+        requiered:false,
+    },
     Usuario:{
         type:String,
         requiered:false,
@@ -80,6 +84,7 @@ router.post ('/agregarfuncionario', async(req,res)=>{
         Departamento:req.body.Departamento,
         Puesto:req.body.Puesto,
         Usuario: req.body.Usuario,
+        Discapacitado: req.body.Discapacitado,
         Passwrd: req.body.Passwrd,
         Horario: req.body.Horario
 
@@ -145,6 +150,7 @@ router.post ('/actualizafuncionario', async(req,res)=>{
         Departamento:req.body.Departamento,
         Puesto:req.body.Puesto,
         Usuario: req.body.Usuario,
+        Discapacitado: req.body.Discapacitado,
         Passwrd: req.body.Passwrd,
         Horario: req.body.Horario
         

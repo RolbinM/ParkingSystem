@@ -14,6 +14,7 @@ export function AgregarFuncionarios(){
         const [puesto, setPuesto]=useState('Regular')
         const [placa, setPlaca]=useState('')
         const [sede, setSede]=useState('San Jose')
+        const [discapacitado, setDiscapacitado]=useState('No')
         const [usuario, setUsuario]=useState('')
         const [passwrd, setPasswrd]=useState('')
     
@@ -30,6 +31,7 @@ export function AgregarFuncionarios(){
                         Placas: placa,
                         Sede: sede,
                         Usuario: usuario,
+                        Discapacitado: discapacitado,
                         Passwrd: passwrd,
                         Horario: [
                                 {
@@ -144,6 +146,15 @@ export function AgregarFuncionarios(){
 
                                 <select className="form-select" name="select" value={sede} onChange={(e)=> {setSede(e.target.value)}}>
                                         <option value="San Jose" >San Jose</option>
+                                </select>
+                        </div>
+
+                        <div className="mb-3">
+                                <label htmlFor="discapacitado" className="form-label">Discapacitado</label>
+
+                                <select className="form-select" name="select" value={discapacitado} onChange={(e)=> {setDiscapacitado(e.target.value)}}>
+                                        <option value="No">No</option>
+                                        <option value="Si">Si</option>
                                 </select>
                         </div>
 
