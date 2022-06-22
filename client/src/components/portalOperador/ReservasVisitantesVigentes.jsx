@@ -13,7 +13,7 @@ export function ReservasVisitantesVigentes(){
 
     useEffect(() => {
         var dia = new Date();
-        var date = `${dia.getFullYear()}-${dia.getMonth()+1}-${dia.getDate()}`;
+        var date = `${dia.getFullYear()}-0${dia.getMonth()+1}-${dia.getDate()}`;
 
         axios.post("http://localhost:3001/api/reservaInvitado/obtenerreservasinvitado",
         {IdParqueo: params.idparqueo}).then(res =>{
@@ -32,6 +32,7 @@ export function ReservasVisitantesVigentes(){
         var date = `${hoy.getFullYear()}-${hoy.getMonth()+1}-${hoy.getDate()}`;
         
         if (date == reserva.FechaReserva && reserva.HoraSalida > hora){
+            console.log("Aja")
             return (
                 <div>
                     <ReservaVisitanteVigente reserva={reserva}/>
@@ -40,6 +41,7 @@ export function ReservasVisitantesVigentes(){
             
         } else {
             if (date > reserva.FechaReserva) {
+                console.log("Aja")
                 return (
                     <div>
                         <ReservaVisitanteVigente reserva={reserva}/>

@@ -13,7 +13,7 @@ export function ReservasOficialesVigentes(){
 
     useEffect(() => {
         var dia = new Date();
-        var date = `${dia.getFullYear()}-${dia.getMonth()+1}-${dia.getDate()}`;
+        var date = `${dia.getFullYear()}-0${dia.getMonth()+1}-${dia.getDate()}`;
 
         axios.post("http://localhost:3001/api/reservaoficial/obtenerreservasoficialesvigentes",
         {FechaReserva: date, IdParqueo: params.idparqueo}).then(res =>{
@@ -29,6 +29,9 @@ export function ReservasOficialesVigentes(){
     const reservas = dataReservas.map(reserva => {
         var hoy = new Date();
         var hora = hoy.getHours() + ':' + hoy.getMinutes();
+
+        console.log(reserva.HoraSalida)
+        console.log(hora)
 
         if (reserva.HoraSalida > hora){
             return (
