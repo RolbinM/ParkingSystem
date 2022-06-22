@@ -127,7 +127,7 @@ export function ReservaVisitas(){
                                 var reserva = {
 
                                          IdReserva: uuidv4(),
-                                         Usuario: null,
+                                         Usuario: 0,
                                          Visitante: idVisita,
                                          IdParqueo: params.idparqueo,
                                          NombreV: nombreVisita,

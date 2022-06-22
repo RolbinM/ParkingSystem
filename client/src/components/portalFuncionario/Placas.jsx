@@ -33,7 +33,8 @@ export function Placas({funcionario}){
         axios.post('http://localhost:3001/api/funcionario/agregarplacafuncionario', 
         {idfuncionario: params.idfuncionario, idplaca: placa}).then(res => {
             Swal.fire('Agregado', 'La placa ha sido registrada')
-            navegar('/listafuncionarios')
+            const ruta = "/listafuncionario/"
+            navegar(ruta.concat(params.user))
         }).catch(err => {
             console.log(err)
         })
@@ -45,7 +46,8 @@ export function Placas({funcionario}){
             {idfuncionario: identificacion, idplaca: placa}).then(res => {
                 console.log(identificacion)
                 Swal.fire('Eliminado', 'La placa ha sido borrada')
-                navegar('/listafuncionarios')
+                const ruta = "/listafuncionario/"
+                navegar(ruta.concat(params.user))
             }).catch(err => {
                 console.log(err)
             })

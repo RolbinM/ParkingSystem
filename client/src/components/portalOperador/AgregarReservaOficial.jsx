@@ -123,7 +123,7 @@ export function AgregarReservaOficial(){
                                 
                                 var nombresdias = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
                                 var dia = new Date();
-                                var date = `${dia.getFullYear()}-${dia.getMonth()+1}-${dia.getDate()}`;
+                                var date = `${dia.getFullYear()}-0${dia.getMonth()+1}-${dia.getDate()}`;
                                 var nombredia = nombresdias[dia.getDay()];
 
                                 var reserva = {

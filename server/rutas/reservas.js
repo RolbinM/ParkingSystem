@@ -113,3 +113,16 @@ router.post ('/obtenerreservasparametrizadas', async(req,res)=>{
         }
     })
 })
+
+
+//obtener data funcionario
+router.post ('/obtenerreservasEsimulador', async(req,res)=>{
+    ModeloReserva.find({FechaReserva:req.body.fechaEntrada}, 
+        function(docs, err){
+        if(!err){
+            res.send(docs)
+        }else{
+            res.send(err)
+        }
+    })
+})

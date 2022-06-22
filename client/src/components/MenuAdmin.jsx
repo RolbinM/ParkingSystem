@@ -35,8 +35,13 @@ export function MenuAdmin(){
                             <a className="nav-link" href="/agregaroperador">Agregar Operador</a>
                         </li>
 
+
                         <li className="nav-item">
                             <a className="nav-link" href="/historialreservasinvitado">Historial Visitas</a>
+                        </li>
+
+                        <li className="nav-item">
+                            <a className="nav-link" href="/simulador">Simulador</a>
                         </li>
 
                         <div class="dropdown">

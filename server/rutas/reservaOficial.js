@@ -116,3 +116,15 @@ router.post ('/expirarreserva', async(req,res)=>{
     })
     console.log(req);
 })
+
+//obtener data funcionario
+router.post ('/obtenerreservasOsimulador', async(req,res)=>{
+    ModeloReservaOficial.find({FechaReserva:req.body.fechaEntrada}, 
+        function(docs, err){
+        if(!err){
+            res.send(docs)
+        }else{
+            res.send(err)
+        }
+    })
+})

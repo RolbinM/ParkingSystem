@@ -60,6 +60,8 @@ import { HistorialReservasParametrizadasJefatura } from './components/portalJefa
 import { ReservasParametrizadasJefatura } from './components/portalJefatura/ReservasParametrizadasJefatura';
 import {HistorialReservasVisitas} from "./components/funcionarios/HistorialReservasVisitas";
 import {ReservaVisitas} from "./components/funcionarios/ReservasVisitas";
+import { Simulador } from './components/funcionarios/Simulador';
+import { SimuladorParametros } from './components/funcionarios/SimuladorParametros';
 
 
 
@@ -88,6 +90,9 @@ root.render(
             <Route path='/listaoperadores' element={<ListaOperadores/> } exact></Route>
             <Route path='/editaroperador/:idoperador' element={<EditarOperador/> } exact></Route>
             <Route path='/reservarinvitados/:idparqueo' element={<ReservaVisitas/> } exact></Route>
+            <Route path='/simulador' element={<Simulador/> } exact></Route>
+            <Route path='/simuladorparametros/:fechaEntrada,:horaEntrada,:horaSalida' element={<SimuladorParametros/> } exact></Route>
+            
 
 
             <Route path='/listaparqueos' element={<ListaParqueos/> } exact></Route>
