@@ -182,3 +182,20 @@ router.post ('/obtenerreservasIsimulador', async(req,res)=>{
         }
     })
 })
+
+
+
+
+
+// Reportes
+
+//obtener data reserva por tipo 
+router.post ('/obtenerreservasinvitadoporparqueoreserva', async(req,res)=>{
+    ModeloReservaInvitado.find({IdParqueo:req.body.IdParqueo}, function(docs, err){
+        if(!err){
+            res.send(docs)
+        }else{
+            res.send(err)
+        }
+    })
+})

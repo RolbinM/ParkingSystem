@@ -78,6 +78,16 @@ router.post ('/agregarreserva', async(req,res)=>{
     })
 })
 
+router.post ('/obtenertodaslasreservas', async(req,res)=>{
+    ModeloReserva.find({}, function(docs, err){
+        if(!err){
+            res.send(docs)
+        }else{
+            res.send(err)
+        }
+    })
+})
+
 //obtener data funcionario
 router.post ('/obtenerreservasfuncionario', async(req,res)=>{
     ModeloReserva.find({IdUsuario:req.body.identificacion}, function(docs, err){
@@ -119,6 +129,30 @@ router.post ('/obtenerreservasparametrizadas', async(req,res)=>{
 router.post ('/obtenerreservasEsimulador', async(req,res)=>{
     ModeloReserva.find({FechaReserva:req.body.fechaEntrada}, 
         function(docs, err){
+        if(!err){
+            res.send(docs)
+        }else{
+            res.send(err)
+        }
+    })
+})
+
+
+//obtener data funcionario
+router.post ('/obtenerreservasportiporeserva', async(req,res)=>{
+    ModeloReserva.find({TipoReserva:req.body.TipoReserva,IdParqueo: req.body.IdParqueo}, function(docs, err){
+        if(!err){
+            res.send(docs)
+        }else{
+            res.send(err)
+        }
+    })
+})
+
+
+
+router.post ('/obtenerreservasporparqueoreserva', async(req,res)=>{
+    ModeloReserva.find({IdParqueo: req.body.IdParqueo}, function(docs, err){
         if(!err){
             res.send(docs)
         }else{

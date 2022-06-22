@@ -1,4 +1,5 @@
 import React from "react";
+import './css/styleMenuAdmin.css'
 import {useParams } from "react-router-dom";
 
 export function MenuJefatura(){
@@ -31,6 +32,14 @@ export function MenuJefatura(){
                         <li className="nav-item">
                             <a className="nav-link" href={`/historialreservasinvitadojefatura/${params.user}`}>Historial reservas visitas</a>
                         </li>
+
+                        <div className="dropdown">
+                            <button className="dropbtn">Reportes</button>
+                            <div className="dropdown-content">
+                                <a href="/ocupacionestacionamientojefatura">Ocupación Estacionamiento</a>
+                                <a href="/reporteparqueodepartamento">Departamentos Estacionamiento</a>
+                            </div>
+                        </div>
 
                         <li className="nav-item">
                             <a className="nav-link" href="/">Cerrar Sesion</a>

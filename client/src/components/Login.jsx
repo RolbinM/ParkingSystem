@@ -8,18 +8,50 @@ export function Login(){
     
         const navegar = useNavigate()
 
-        const loginAdministrador = async() =>{         
-            navegar('/loginAdministrador')  
+        class  StrategyProfiles{
+            constructor(){
+                this._strategy = null;
+            }
+            set strategy(strategy){
+                this._strategy =strategy;
+            }
+            get strategy(){
+                return this.strategy;
+            }
+            doAction(){
+                this._strategy.doAction();
+            }
         }
 
-        const loginFuncionario = async() =>{         
-            navegar('/loginFuncionario')  
+        class Administrator {
+            doAction(){
+                       
+                    navegar('/loginAdministrador')  
+                
+            }
         }
 
-        const loginParqueo = async() =>{         
-            navegar('/loginParqueo')  
+        class Funcionario {
+            doAction(){
+                       
+                    navegar('/loginFuncionario')  
+                
+            }
         }
-    
+
+        class Parqueo {
+            doAction(){
+                       
+                    navegar('/loginParqueo')  
+                
+            }
+        }
+
+        var strategyProfiles = new StrategyProfiles();
+        const administrator = new Administrator();
+        const funcionario = new Funcionario();
+        const parqueo = new Parqueo();
+
         return (
             <section className="Form my-4 mx-5">
             <div className="container">
@@ -33,18 +65,30 @@ export function Login(){
                      
                         <div className="form-row">
                             <div className="col-lg 7">
-                                <button onClick={loginFuncionario} className="font-weight-bold btn-success  mt-3 mb-5" style={{width: "100%", borderRadius: "50px" , border: "1px solid white"}}><h4>Iniciar Sesión Funcionario</h4></button>
+                                <button onClick={ (e) => {
+                                   strategyProfiles = funcionario;
+                                   strategyProfiles.doAction();
+                                }                                    
+                                } className="font-weight-bold btn-success  mt-3 mb-5" style={{width: "100%", borderRadius: "50px" , border: "1px solid white"}}><h4>Iniciar Sesión Funcionario</h4></button>
                             </div>
                         </div>
                         <div className="form-row">
                             <div className="col-lg 7">
-                                <button onClick={loginAdministrador} className="font-weight-bold btn-success  mt-3 mb-5" style={{width: "100%", borderRadius: "50px", border: "1px solid white"}}><h4>Iniciar Sesión Administrador</h4></button>
+                            <button onClick={ (e) => {
+                                    strategyProfiles = administrator;
+                                    strategyProfiles.doAction();
+                                }                                    
+                                } className="font-weight-bold btn-success  mt-3 mb-5" style={{width: "100%", borderRadius: "50px", border: "1px solid white"}}><h4>Iniciar Sesión Administrador</h4></button>
                             </div>
                         </div>
 
                         <div className="form-row">
                             <div className="col-lg 7">
-                                <button onClick={loginParqueo} className="font-weight-bold btn-success  mt-3 mb-5" style={{width: "100%",borderRadius: "50px", border: "1px solid white"}}><h4>Iniciar Sesión Operador Parqueo</h4></button>
+                            <button onClick={ (e) => {
+                                    strategyProfiles = parqueo;
+                                    strategyProfiles.doAction();
+                                }                                    
+                                } className="font-weight-bold btn-success  mt-3 mb-5" style={{width: "100%",borderRadius: "50px", border: "1px solid white"}}><h4>Iniciar Sesión Operador Parqueo</h4></button>
                             </div>
                         </div>
                        

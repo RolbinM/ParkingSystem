@@ -44,13 +44,15 @@ export function MenuAdmin(){
                             <a className="nav-link" href="/simulador">Simulador</a>
                         </li>
 
-                        <div class="dropdown">
-                            <button class="dropbtn">Reportes</button>
-                            <div class="dropdown-content">
+                        <div className="dropdown">
+                            <button className="dropbtn">Reportes</button>
+                            <div className="dropdown-content">
                                 <a href="/reportefuncionarios">Reporte Funcionarios</a>
                                 <a href="/reporteparqueos">Reporte Parqueos</a>
                                 <a href="/reportehorarios">Reporte Horarios</a>
                                 <a href="/reporteconsultafuncionario/1">Consulta Funcionario</a>
+                                <a href="/ocupacionestacionamiento">Ocupación Estacionamiento</a>
+                                <a href="/reporteparqueodepartamentoadmin">Departamentos Estacionamiento</a>
                             </div>
                         </div>
 

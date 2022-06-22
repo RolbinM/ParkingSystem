@@ -63,6 +63,14 @@ import {ReservaVisitas} from "./components/funcionarios/ReservasVisitas";
 import { Simulador } from './components/funcionarios/Simulador';
 import { SimuladorParametros } from './components/funcionarios/SimuladorParametros';
 
+import { OcupacionEstacionamiento } from './components/funcionarios/OcupacionEstacionamiento';
+import { ReporteTipoEspacioAdmin } from './components/funcionarios/ReporteTipoEspacioAdmin';
+import { ReporteDepartamentoAdmin } from './components/funcionarios/ReporteDepartamentoAdmin';
+import { ReporteParqueoDepartamentoAdmin } from './components/funcionarios/ReporteParqueoDepartamentoAdmin';
+
+import { OcupacionEstacionamientoJefatura } from './components/portalJefatura/OcupacionEstacionamientoJefatura';
+import { ReporteTipoEspacioJefatura } from './components/portalJefatura/ReporteTipoEspacioJefatura';
+import { ReporteDepartamentoJefatura } from './components/portalJefatura/ReporteDepartamentoJefatura';
 
 
 const rootElement = document.getElementById('root');
@@ -133,6 +141,16 @@ root.render(
             <Route path='/reservasoficialesvigentes/:user,:idparqueo'  element={<ReservasOficialesVigentes/> } exact></Route>
             <Route path='/reservasvisitantes/:user,:idparqueo'  element={<ReservasVisitantes/> } exact></Route>
             <Route path='/reservasvisitantesvigentes/:user,:idparqueo'  element={<ReservasVisitantesVigentes/> } exact></Route>
+            
+            <Route path='/ocupacionestacionamiento'  element={<OcupacionEstacionamiento/> } exact></Route>
+            <Route path='/reportetipoespacioadmin/:idparqueo'  element={<ReporteTipoEspacioAdmin/> } exact></Route>
+            <Route path='/reportedepartamentoadmin/:idparqueo'  element={<ReporteDepartamentoAdmin/> } exact></Route>
+            <Route path='/reportedepartamentoadmin/:idparqueo'  element={<ReporteDepartamentoAdmin/> } exact></Route>
+            <Route path='/reporteparqueodepartamentoadmin'  element={<ReporteParqueoDepartamentoAdmin/> } exact></Route>
+
+            <Route path='/ocupacionestacionamientojefatura'  element={<OcupacionEstacionamientoJefatura/> } exact></Route>
+            <Route path='/reportetipoespaciojefatura/:idparqueo'  element={<ReporteTipoEspacioJefatura/> } exact></Route>
+            <Route path='/reportedepartamentojefatura/:idparqueo'  element={<ReporteDepartamentoJefatura/> } exact></Route>
 
         </Routes>
     </BrowserRouter>
