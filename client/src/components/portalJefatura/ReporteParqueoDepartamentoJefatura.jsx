@@ -8,7 +8,7 @@ import { Bar } from 'react-chartjs-2';
 
 
 
-export function ReporteDepartamentoJefatura(){
+export function ReporteParqueoDepartamentoJefatura(){
 
     const params = useParams()
     
@@ -23,7 +23,7 @@ export function ReporteDepartamentoJefatura(){
             setdatafuncionario(resFuncionario.data)
         
 
-            axios.post("http://localhost:3001/api/reserva/obtenerreservasporparqueoreserva", {IdParqueo: params.idparqueo})
+            axios.post("http://localhost:3001/api/reserva/obtenertodaslasreservas", {})
             .then(res =>{
                 const listaDatos = res.data;
 
@@ -83,7 +83,7 @@ export function ReporteDepartamentoJefatura(){
             <MenuJefatura/>
             <div>
                 <h2>
-                    Reportes de ocupación en un parqueo por departamento
+                    Reportes de ocupación de todos los parqueos por departamento
                 </h2>
                 <br></br>
 

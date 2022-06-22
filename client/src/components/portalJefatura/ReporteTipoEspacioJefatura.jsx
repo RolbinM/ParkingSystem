@@ -4,7 +4,7 @@ import {MenuJefatura} from "../MenuJefatura"
 import {useParams } from "react-router-dom";
 
 import 'chart.js/auto';
-import { Doughnut } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 
 
 
@@ -110,7 +110,7 @@ export function ReporteTipoEspacioJefatura(){
                 <br></br>
 
                 <div style={{width: "800px", margin: "0 auto"}}>
-                    <Doughnut data={data}/>
+                    <Bar data={data}/>
                 </div>
 
             </div>

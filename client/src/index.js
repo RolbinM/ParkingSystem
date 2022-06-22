@@ -71,6 +71,7 @@ import { ReporteParqueoDepartamentoAdmin } from './components/funcionarios/Repor
 import { OcupacionEstacionamientoJefatura } from './components/portalJefatura/OcupacionEstacionamientoJefatura';
 import { ReporteTipoEspacioJefatura } from './components/portalJefatura/ReporteTipoEspacioJefatura';
 import { ReporteDepartamentoJefatura } from './components/portalJefatura/ReporteDepartamentoJefatura';
+import { ReporteParqueoDepartamentoJefatura } from './components/portalJefatura/ReporteParqueoDepartamentoJefatura';
 
 
 const rootElement = document.getElementById('root');
@@ -151,6 +152,7 @@ root.render(
             <Route path='/ocupacionestacionamientojefatura'  element={<OcupacionEstacionamientoJefatura/> } exact></Route>
             <Route path='/reportetipoespaciojefatura/:idparqueo'  element={<ReporteTipoEspacioJefatura/> } exact></Route>
             <Route path='/reportedepartamentojefatura/:idparqueo'  element={<ReporteDepartamentoJefatura/> } exact></Route>
+            <Route path='/reporteparqueodepartamento'  element={<ReporteParqueoDepartamentoJefatura/> } exact></Route>
 
         </Routes>
     </BrowserRouter>
